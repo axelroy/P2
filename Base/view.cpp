@@ -18,8 +18,11 @@ View::View()
     setResizeAnchor(QGraphicsView::NoAnchor);
 
     mainCell = new Cell(0.0, 0.0 ,500);
+    mainCell->setBrush(Qt::blue);
+
     myScene->addItem(mainCell);
     myScene->initSettling(1000);
+
 
 
     //this->show();
@@ -117,5 +120,5 @@ void View::timerEvent(QTimerEvent *e)
 
     //peut-être un brin sale, pour que ça marche
     myScene->collider(mainCell);
-    myScene->settler();
+    myScene->settler(mainCell);
 }

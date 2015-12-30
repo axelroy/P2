@@ -17,7 +17,7 @@ public:
     //Detecte et gère les collisions
     void collider(Cell * collidingCell);
     //parcours la deadlist et replace, modifie les cellules
-    void settler();
+    void settler(Cell * refCell);
 private:
 
     View* myView;

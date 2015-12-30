@@ -25,13 +25,28 @@ void CustomScene::initSettling(int nCells){
 void CustomScene::collider(Cell * collidingCell){
 
     foreach(QGraphicsItem* s,collidingItems(collidingCell)){
-       deadList.push_back(reinterpret_cast<Cell*>(s));
+
+        Cell * c = reinterpret_cast<Cell*>(s);
+
+
+        if(collidingCell->getHealthPoint() > c->getHealthPoint()*0.8){
+            collidingCell->eat(c);
+            c->hide();
+            deadList.push_back(c);
+        }
+        else if(collidingCell->getHealthPoint()*0.8 < reinterpret_cast<Cell*>(c)->getHealthPoint()){
+            collidingCell->hide();
+            c->eat(collidingCell);
+            //Fin du jeu
+        }
     };
 }
 
-void CustomScene::settler(){
+void CustomScene::settler(Cell * refCell){
     foreach (Cell* s, deadList) {
-        //s->
+        //refaire pour pas qu'il apparaisse sur la partie visible
+        s->setPos(randInt(-1000, 1000), randInt(-1000, 1000));
+        s->setHealthPoint(randInt(0.5, 2)*refCell->getHealthPoint());
     }
 }
 
