@@ -28,6 +28,10 @@ void Cell::refreshSize()
 void Cell::eat(Cell * c)
 {
     this->healthPoint += c->getBonusHealthPoint();
+    if(this->healthPoint <= 0){
+        //Fin du jeu;
+        this->hide();
+    }
     this->speed += c->getBonusSpeed();
     this->armor += c->getBonusArmor();
 

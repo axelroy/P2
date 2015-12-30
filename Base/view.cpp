@@ -19,9 +19,10 @@ View::View()
 
     mainCell = new Cell(0.0, 0.0 ,500);
     mainCell->setBrush(Qt::blue);
+    mainCell->setSpeed(5.0);
 
     myScene->addItem(mainCell);
-    myScene->initSettling(1000);
+    myScene->initSettling(1000, mainCell);
 
 
 
@@ -93,28 +94,28 @@ void View::timerEvent(QTimerEvent *e)
 //CustomScene* myScene = dynamic_cast<CustomScene *>(scene());
     //Move up
     if(keysStatment == 0b00000001)
-        myScene->MoveCell(0.0,-5.0, mainCell);
+        myScene->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
 
     if(keysStatment == 0b00000011)
-        myScene->MoveCell(-3.0,-3.0, mainCell);
+        myScene->MoveCell(-mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
 
     if(keysStatment == 0b00000010)
-        myScene->MoveCell(-5.0,0.0, mainCell);
+        myScene->MoveCell(-mainCell->getSpeed(),0.0, mainCell);
 
     if(keysStatment == 0b00000110)
-        myScene->MoveCell(-3.0,3.0, mainCell);
+        myScene->MoveCell(-mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
 
     if(keysStatment == 0b00000100)
-         myScene->MoveCell(0.0,5.0, mainCell);
+         myScene->MoveCell(0.0,mainCell->getSpeed(), mainCell);
 
     if(keysStatment == 0b00001100)
-        myScene->MoveCell(3.0,3.0, mainCell);
+        myScene->MoveCell(mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
 
     if(keysStatment == 0b00001000)
-        myScene->MoveCell(5.0,0.0, mainCell);
+        myScene->MoveCell(mainCell->getSpeed(),0.0, mainCell);
 
     if(keysStatment == 0b00001001)
-        myScene->MoveCell(3.0,-3.0, mainCell);
+        myScene->MoveCell(mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
 
     centerOn(mainCell);
 
