@@ -33,16 +33,32 @@ View::View()
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(CustomScene::BaseSpeedCell);
 
+    //Timer d'animation pour le grossissement, durée d'une séquence : 1 seconde
+    QTimeLine *timer = new QTimeLine(1000);
+    timer->setFrameRange(0, 100);
+    timer->setUpdateInterval(60);
+    //Crée l'animation, set l'objet sur lequel ca s'applique, lie le timer et le fait se répéter
+    animation = new QGraphicsItemAnimation;
+    animation->setItem(mainCell);
+    animation->setTimeLine(timer);
+    timer->setLoopCount(0);
+
+    //Ces deux tailles se répetent en boucle
+    animation->setScaleAt(0.0,1.0,1.0);
+    animation->setScaleAt(0.5,1.2,1.2);
+    //animation->setTranslationAt(0.5, -(mainCell-> *animation->horizontalScaleAt(0.5)), -(mainCell->scale() *  animation->horizontalScaleAt(0.5))) ;
+    animation->setScaleAt(1.0,1.0,1.0);
+    //animation->setTranslationAt(1, 0,0 ) ;
+
     myScene->addItem(mainCell);
     myScene->initSettling(1000, mainCell);
 
+    centerOn((mainCell->pos().x() - mainCell->scale()), (mainCell->pos().y() - mainCell->scale()) );
 
+    //Lance le timer d'animation
+    timer->start();
 
-    //this->show();
-    centerOn(mainCell);
-
-
-
+    //Lance le timer de clavier
     startTimer(20);
 }
 
@@ -147,7 +163,7 @@ void View::timerEvent(QTimerEvent *e)
 
     //qDebug() << "move " <<CustomScene::autorizedDirection;
 
-    centerOn(mainCell);
+    centerOn((mainCell->pos().x() - mainCell->scale()), (mainCell->pos().y() - mainCell->scale()) );
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
     mainCell->setSpeed((mainCell->getSpeed()-CustomScene::BaseSpeedCell)*0.95+CustomScene::BaseSpeedCell);

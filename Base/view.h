@@ -6,6 +6,8 @@
 #include <QKeyEvent>
 #include "Cell.h"
 #include <QLayout>
+#include <QTimeLine>
+#include <QGraphicsItemAnimation>
 
 
 class View : public QGraphicsView
@@ -23,8 +25,7 @@ private:
     char keysStatment;
     CustomScene* myScene;
     Cell *mainCell;
-
-
+    QGraphicsItemAnimation *animation;
 
 protected:
     void keyPressEvent(QKeyEvent* e);
