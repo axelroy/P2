@@ -1,4 +1,5 @@
 #include "view.h"
+#include <QtDebug>
 
 
 View::View()
@@ -19,7 +20,7 @@ View::View()
 
     mainCell = new Cell(0.0, 0.0 ,500);
     mainCell->setBrush(Qt::blue);
-    mainCell->setSpeed(5.0);
+    mainCell->setSpeed(CustomScene::BaseSpeedCell);
 
     myScene->addItem(mainCell);
     myScene->initSettling(1000, mainCell);
@@ -118,6 +119,10 @@ void View::timerEvent(QTimerEvent *e)
         myScene->MoveCell(mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
 
     centerOn(mainCell);
+
+    //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
+    mainCell->setSpeed((mainCell->getSpeed()-CustomScene::BaseSpeedCell)*0.99+CustomScene::BaseSpeedCell);
+    qDebug() << mainCell->getSpeed();
 
     //peut-être un brin sale, pour que ça marche
     myScene->collider(mainCell);

@@ -35,12 +35,13 @@ private:
     //Donne à la deadlist les cellules trop éloignées de la cellule principale
     void borderguard();
 
-
-    //Definition propriétés cellules
+public:
+    //Definition propriétés cellules à déplacer dans la classe Cell ?
     int randomCell = 0;
 
     int ProbMalusCell = 20;
     int ProbBonusCell = 20;
+    const static int BaseSpeedCell = 5;
 
 };
 

@@ -23,6 +23,8 @@ private:
     CustomScene* myScene;
     Cell *mainCell;
 
+
+
 protected:
     void keyPressEvent(QKeyEvent* e);
     void keyReleaseEvent(QKeyEvent* e);

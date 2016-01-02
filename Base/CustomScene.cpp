@@ -1,6 +1,7 @@
 #include "CustomScene.h"
 #include <QtGlobal>
 #include <QTime>
+#include <QtDebug>
 
 CustomScene::CustomScene()
 {
@@ -59,7 +60,7 @@ void CustomScene::settler(Cell * refCell){
 void CustomScene::giveProperties(Cell * cell, Cell * refCell, int minRange){
 
     //refaire pour pas qu'il apparaisse sur la partie visible
-    cell->setPos(randInt(-1000, 1000), randInt(-1000, 1000));
+    cell->setPos((refCell->x())+randInt(-1000, 1000), (refCell->x())+randInt(-1000, 1000));
 
     randomCell = randInt(0, 100);
     //Risque de voir une prolifération de malusCell car le joueur va éviter de les prendre ?
@@ -89,8 +90,12 @@ void CustomScene::borderguard(){
 
 int CustomScene::randInt(int low, int high)
 {
+    int a = qrand() % ((high + 1) - low) + low;
+
+    //qDebug() << a << "\n";
     // Random number between low and high
-    return qrand() % ((high + 1) - low) + low;
+    return a;
+
 }
 
 
