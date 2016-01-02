@@ -7,6 +7,7 @@
 #include "Cell.h"
 #include <QLayout>
 
+
 class View : public QGraphicsView
 {
 public:
@@ -29,6 +30,9 @@ protected:
     void keyPressEvent(QKeyEvent* e);
     void keyReleaseEvent(QKeyEvent* e);
     void timerEvent(QTimerEvent* e);
+
+
+
 };
 
 #endif // VIEW_H

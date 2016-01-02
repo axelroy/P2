@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 #include "cell.h"
 
+
 class View;
 
 class CustomScene: public QGraphicsScene
@@ -22,6 +23,16 @@ public:
     void giveProperties(Cell * cell, Cell * refCell, int minRange);
 
 
+    //Definition propriétés cellules à déplacer dans la classe Cell ?
+    static int randomCell;
+
+    static int ProbMalusCell;
+    static int ProbBonusCell;
+    static double BaseSpeedCell;
+
+    static char autorizedDirection;
+
+
 private:
 
     View* myView;
@@ -35,13 +46,6 @@ private:
     //Donne à la deadlist les cellules trop éloignées de la cellule principale
     void borderguard();
 
-public:
-    //Definition propriétés cellules à déplacer dans la classe Cell ?
-    int randomCell = 0;
-
-    int ProbMalusCell = 20;
-    int ProbBonusCell = 20;
-    const static int BaseSpeedCell = 5;
 
 };
 

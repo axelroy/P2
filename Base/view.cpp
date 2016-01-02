@@ -1,11 +1,22 @@
 #include "view.h"
 #include <QtDebug>
+#include "CustomScene.h"
 
+
+//configuration
+int CustomScene::randomCell = 0;
+int CustomScene::ProbMalusCell = 20;
+int CustomScene::ProbBonusCell = 20;
+double CustomScene::BaseSpeedCell = 5;
+char CustomScene::autorizedDirection = 0b11111111;
 
 View::View()
 {
+
     keysStatment=0b00000000;
     myScene= new CustomScene();
+
+
 
     this->setScene(myScene);
 
@@ -94,35 +105,53 @@ void View::timerEvent(QTimerEvent *e)
 {
 //CustomScene* myScene = dynamic_cast<CustomScene *>(scene());
     //Move up
-    if(keysStatment == 0b00000001)
+    if((keysStatment & CustomScene::autorizedDirection) == 0b00000001){
         myScene->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
+        CustomScene::autorizedDirection = 0b11111111;
+    }
 
-    if(keysStatment == 0b00000011)
+    if((keysStatment & CustomScene::autorizedDirection) == 0b00000011){
         myScene->MoveCell(-mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
+        CustomScene::autorizedDirection = 0b11111111;
+    }
 
-    if(keysStatment == 0b00000010)
+    if((keysStatment & CustomScene::autorizedDirection) == 0b00000010){
         myScene->MoveCell(-mainCell->getSpeed(),0.0, mainCell);
+        CustomScene::autorizedDirection = 0b11111111;
+    }
 
-    if(keysStatment == 0b00000110)
+    if((keysStatment & CustomScene::autorizedDirection) == 0b00000110){
         myScene->MoveCell(-mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
+        CustomScene::autorizedDirection = 0b11111111;
+    }
 
-    if(keysStatment == 0b00000100)
+    if((keysStatment & CustomScene::autorizedDirection) == 0b00000100){
          myScene->MoveCell(0.0,mainCell->getSpeed(), mainCell);
+         CustomScene::autorizedDirection = 0b11111111;
+     }
 
-    if(keysStatment == 0b00001100)
+    if((keysStatment & CustomScene::autorizedDirection) == 0b00001100){
         myScene->MoveCell(mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
+        CustomScene::autorizedDirection = 0b11111111;
+    }
 
-    if(keysStatment == 0b00001000)
+    if((keysStatment & CustomScene::autorizedDirection) == 0b00001000){
         myScene->MoveCell(mainCell->getSpeed(),0.0, mainCell);
+        CustomScene::autorizedDirection = 0b11111111;
+    }
 
-    if(keysStatment == 0b00001001)
+    if((keysStatment & CustomScene::autorizedDirection) == 0b00001001){
         myScene->MoveCell(mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
+        CustomScene::autorizedDirection = 0b11111111;
+    }
+
+    //qDebug() << "move " <<CustomScene::autorizedDirection;
 
     centerOn(mainCell);
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
-    mainCell->setSpeed((mainCell->getSpeed()-CustomScene::BaseSpeedCell)*0.99+CustomScene::BaseSpeedCell);
-    qDebug() << mainCell->getSpeed();
+    mainCell->setSpeed((mainCell->getSpeed()-CustomScene::BaseSpeedCell)*0.95+CustomScene::BaseSpeedCell);
+    //qDebug() << mainCell->getSpeed();
 
     //peut-être un brin sale, pour que ça marche
     myScene->collider(mainCell);

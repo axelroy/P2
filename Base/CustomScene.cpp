@@ -41,7 +41,30 @@ void CustomScene::collider(Cell * collidingCell){
         else if(collidingCell->getHealthPoint() < reinterpret_cast<Cell*>(c)->getHealthPoint()*0.8){
             c->eat(collidingCell);
             collidingCell->hide();
-            //Fin du jeu
+
+            CustomScene::autorizedDirection = 0b00000000;
+        }else{
+            //collision haut
+            if(collidingCell->sceneBoundingRect().center().y() > s->sceneBoundingRect().center().y()){
+                CustomScene::autorizedDirection = 0b11111110 & CustomScene::autorizedDirection;
+                qDebug() << "Haut";
+            }
+            //bas
+            if(collidingCell->sceneBoundingRect().center().y() < s->sceneBoundingRect().center().y()){
+                CustomScene::autorizedDirection = 0b11111011 & CustomScene::autorizedDirection;
+                qDebug() << "Haut";
+            }
+            //gauche
+            if(collidingCell->sceneBoundingRect().center().x() > s->sceneBoundingRect().center().x()){
+                CustomScene::autorizedDirection = 0b11111101 & CustomScene::autorizedDirection;
+            }
+            //droite
+            if(collidingCell->sceneBoundingRect().center().x() < s->sceneBoundingRect().center().x()){
+                CustomScene::autorizedDirection = 0b11110111 & CustomScene::autorizedDirection;
+
+            }
+
+            qDebug() << CustomScene::autorizedDirection;
         }
     };
 }
@@ -62,18 +85,18 @@ void CustomScene::giveProperties(Cell * cell, Cell * refCell, int minRange){
     //refaire pour pas qu'il apparaisse sur la partie visible
     cell->setPos((refCell->x())+randInt(-1000, 1000), (refCell->x())+randInt(-1000, 1000));
 
-    randomCell = randInt(0, 100);
+    CustomScene::randomCell = randInt(0, 100);
     //Risque de voir une prolifération de malusCell car le joueur va éviter de les prendre ?
-    if(randomCell < ProbMalusCell){
+    if(CustomScene::randomCell < CustomScene::ProbMalusCell){
         cell->setHealthPoint(0.2*refCell->getHealthPoint());
         cell->setBrush(Qt::red);
         cell->setBonusHealthPoint((-(double)(randInt(1, 5))/10)*refCell->getHealthPoint());
-        cell->setBonusSpeed((-(double)(randInt(1, 5))/10)*refCell->getSpeed());
-    }else if(randomCell < ProbBonusCell+ProbMalusCell){
+        cell->setBonusSpeed((-(double)(randInt(2, 20))/10)*refCell->getSpeed());
+    }else if(CustomScene::randomCell < CustomScene::ProbBonusCell+CustomScene::ProbMalusCell){
         cell->setHealthPoint(0.2*refCell->getHealthPoint());
         cell->setBrush(Qt::green);
         cell->setBonusHealthPoint(((double)(randInt(1, 5))/10)*refCell->getHealthPoint());
-        cell->setBonusSpeed(((double)(randInt(1, 5))/10)*refCell->getSpeed());
+        cell->setBonusSpeed(((double)(randInt(2, 20))/10)*refCell->getSpeed());
     }else {
         cell->setHealthPoint(((double)(randInt(3, 20))/10)*refCell->getHealthPoint());
         cell->setBrush(Qt::darkYellow);

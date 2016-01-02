@@ -12,10 +12,10 @@ public:
 private:
     int healthPoint;
     int armor;
-    int speed;
+    double speed;
 
     int bonusHealthPoint;
-    int bonusSpeed;
+    double bonusSpeed;
     int bonusArmor;
 
 
@@ -28,7 +28,7 @@ public:
     //setter
     void setHealthPoint(int value){healthPoint=value;}
     void setArmor(int value){armor=value;}
-    void setSpeed(int value){speed=value;}
+    void setSpeed(double value){speed=value;}
     void setBonusHealthPoint(int value){bonusHealthPoint=value;}
     void setBonusArmor(int value){bonusSpeed=value;}
     void setBonusSpeed(int value){bonusArmor=value;}
@@ -36,10 +36,10 @@ public:
     //getter
     int getHealthPoint(){return healthPoint;}
     int getArmor(){return armor;}
-    int getSpeed(){return speed;}
+    double getSpeed(){return speed;}
     int getBonusHealthPoint(){return bonusHealthPoint;}
     int getBonusArmor(){return bonusSpeed;}
-    int getBonusSpeed(){return bonusArmor;}
+    double getBonusSpeed(){return bonusArmor;}
 
 };
 
