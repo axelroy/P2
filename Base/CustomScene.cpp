@@ -110,12 +110,12 @@ void CustomScene::giveProperties(Cell * cell, Cell * refCell, int minRange){
 
 void CustomScene::borderguard(Cell * refCell, qreal area){
     //todo : fixer la zone active autours de la cellule de ref
-    Cell * controledCell;
+    QGraphicsItem * controledCell;
     foreach (controledCell, items()) {
         if (controledCell->x() > refCell->x()+area || controledCell->x() < refCell->x()-area || controledCell->y() > refCell->y()+area || controledCell->y() < refCell->y()-area)
         {
             // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
-            deadList.enqueue(controledCell);
+            deadList.enqueue(reinterpret_cast<Cell*>(controledCell));
         }
 
     };

@@ -44,7 +44,7 @@ private:
 
 
     //Donne à la deadlist les cellules trop éloignées de la cellule principale
-    void borderguard();
+    void borderguard(Cell * refCell, qreal area);
 
 
 };
