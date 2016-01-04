@@ -83,7 +83,7 @@ void CustomScene::settler(Cell * refCell){
 void CustomScene::giveProperties(Cell * cell, Cell * refCell, int minRange){
 
     //refaire pour pas qu'il apparaisse sur la partie visible
-    cell->setPos((refCell->x())+randInt(-1000, 1000), (refCell->x())+randInt(-1000, 1000));
+    cell->setPos((refCell->x())+randInt(-1000, 1000), (refCell->y())+randInt(-1000, 1000));
 
     CustomScene::randomCell = randInt(0, 100);
     //Risque de voir une prolifération de malusCell car le joueur va éviter de les prendre ?
@@ -116,6 +116,7 @@ void CustomScene::borderguard(Cell * refCell, qreal area){
         {
             // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
             deadList.enqueue(reinterpret_cast<Cell*>(controledCell));
+            qDebug() << controledCell;
         }
 
     };

@@ -19,6 +19,8 @@ public:
     void collider(Cell * collidingCell);
     //parcours la deadlist et replace, modifie les cellules
     void settler(Cell * refCell);
+    //Donne à la deadlist les cellules trop éloignées de la cellule principale
+    void borderguard(Cell * refCell, qreal area);
 
     void giveProperties(Cell * cell, Cell * refCell, int minRange);
 
@@ -43,8 +45,7 @@ private:
 
 
 
-    //Donne à la deadlist les cellules trop éloignées de la cellule principale
-    void borderguard(Cell * refCell, qreal area);
+
 
 
 };

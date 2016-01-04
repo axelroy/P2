@@ -172,4 +172,6 @@ void View::timerEvent(QTimerEvent *e)
     //peut-être un brin sale, pour que ça marche
     myScene->collider(mainCell);
     myScene->settler(mainCell);
+
+    myScene->borderguard(mainCell, 1000);
 }
