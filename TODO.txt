@@ -1,0 +1,22 @@
+	Principal :
+ 
+Taille de la cellule qui augmente lors de la mort
+Cellule non centrée
+Animation qui réduit au lieu d'augmenter
+modifier Settler pour agir dans la zone, et relatif à la cellule de référence
+Aléatoire des cellule (taille)
+Menu : Relancer, play, stop
+Installeur
+rendu opengl
+Graphisme
+Titre de la fenêtre
+Zoom
+
+
+
+
+	Secondaires : 
+Stats
+Parralèlisation
+Sons
+

@@ -45,7 +45,7 @@ View::View()
 
     //Ces deux tailles se répetent en boucle
     animation->setScaleAt(0.0,1.0,1.0);
-    animation->setScaleAt(0.5,1.2,1.2);
+    animation->setScaleAt(0.5,0.9,0.9);
     //animation->setTranslationAt(0.5, -(mainCell-> *animation->horizontalScaleAt(0.5)), -(mainCell->scale() *  animation->horizontalScaleAt(0.5))) ;
     animation->setScaleAt(1.0,1.0,1.0);
     //animation->setTranslationAt(1, 0,0 ) ;
