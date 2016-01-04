@@ -3,9 +3,10 @@
 #include <QTime>
 #include <QtDebug>
 
-CustomScene::CustomScene()
+CustomScene::CustomScene(Cell *refCell)
 {
-
+    this->refCell = refCell;
+    int area = 1000;
 }
 
 void CustomScene::MoveCell(double x, double y, Cell * cell)
@@ -108,7 +109,7 @@ void CustomScene::giveProperties(Cell * cell, Cell * refCell, int minRange){
 
 
 
-void CustomScene::borderguard(Cell * refCell, qreal area){
+void CustomScene::borderguard(){
     //todo : fixer la zone active autours de la cellule de ref
     QGraphicsItem * controledCell;
     foreach (controledCell, items()) {
@@ -116,7 +117,7 @@ void CustomScene::borderguard(Cell * refCell, qreal area){
         {
             // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
             deadList.enqueue(reinterpret_cast<Cell*>(controledCell));
-            qDebug() << controledCell;
+            qDebug() << "controledCelxdhsa fkljahdf iuliuhdsaiuf hsakjfdlhkjsa";
         }
 
     };

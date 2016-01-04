@@ -1,6 +1,7 @@
 #include "view.h"
 #include <QtDebug>
 #include "CustomScene.h"
+#include <QTimer>
 
 
 //configuration
@@ -13,9 +14,10 @@ char CustomScene::autorizedDirection = 0b11111111;
 View::View()
 {
 
-    keysStatment=0b00000000;
-    myScene= new CustomScene();
+    mainCell = new Cell(0.0, 0.0 ,500);
 
+    keysStatment=0b00000000;
+    myScene= new CustomScene(mainCell);
 
 
     this->setScene(myScene);
@@ -29,7 +31,7 @@ View::View()
     setTransformationAnchor(QGraphicsView::NoAnchor);
     setResizeAnchor(QGraphicsView::NoAnchor);
 
-    mainCell = new Cell(0.0, 0.0 ,500);
+
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(CustomScene::BaseSpeedCell);
 
@@ -60,6 +62,13 @@ View::View()
 
     //Lance le timer de clavier
     startTimer(20);
+
+    //Timer de Borderguards
+    QTimer *timerBorderguards = new QTimer(this);
+    //connect(timerBorderguards, SIGNAL(timeout()), this, SLOT(timerBorderguard()));
+    connect(timerBorderguards, &QTimer::timeout, this, &View::timerBorderguard);
+
+    timerBorderguards->start(1000);
 }
 
 
@@ -172,6 +181,9 @@ void View::timerEvent(QTimerEvent *e)
     //peut-être un brin sale, pour que ça marche
     myScene->collider(mainCell);
     myScene->settler(mainCell);
-
-    myScene->borderguard(mainCell, 1000);
 }
+
+ void View::timerBorderguard(){
+     myScene->borderguard();
+}
+

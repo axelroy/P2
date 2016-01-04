@@ -32,7 +32,8 @@ protected:
     void keyReleaseEvent(QKeyEvent* e);
     void timerEvent(QTimerEvent* e);
 
-
+private slots:
+    void timerBorderguard();
 
 };
 

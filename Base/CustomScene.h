@@ -10,7 +10,7 @@ class View;
 class CustomScene: public QGraphicsScene
 {
 public:
-    CustomScene();
+    CustomScene(Cell *refCell);
     //Scene(View* parent = 0);
     void MoveCell(double x, double y, Cell * cell);
     //peuple la Scene à l'initialisation
@@ -19,10 +19,10 @@ public:
     void collider(Cell * collidingCell);
     //parcours la deadlist et replace, modifie les cellules
     void settler(Cell * refCell);
-    //Donne à la deadlist les cellules trop éloignées de la cellule principale
-    void borderguard(Cell * refCell, qreal area);
 
     void giveProperties(Cell * cell, Cell * refCell, int minRange);
+
+    void borderguard();
 
 
     //Definition propriétés cellules à déplacer dans la classe Cell ?
@@ -43,8 +43,12 @@ private:
 
     int randInt(int low, int high);
 
+    Cell *refCell;
 
+    int area;
 
+public slots:
+    //Donne à la deadlist les cellules trop éloignées de la cellule principale
 
 
 
