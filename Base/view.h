@@ -24,6 +24,7 @@ private:
     // 3-> d
     char keysStatment;
     CustomScene* myScene;
+
     Cell *mainCell;
     QGraphicsItemAnimation *animation;
 

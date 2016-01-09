@@ -2,12 +2,18 @@
 #define CELL_H
 
 #include <QGraphicsItem>
+#include <QQueue>
+#include <QSemaphore>
 
 class Cell : public QGraphicsEllipseItem
 {
 public:
-    Cell();
-    Cell(qreal x, qreal y, int healthPoint, QGraphicsItem* parent = 0);
+    Cell(QGraphicsItem* parent = 0);
+    Cell(int healthPoint, QGraphicsItem* parent = 0);
+
+    static double BaseSpeedCell;
+    static QQueue<Cell*> deadList;
+    static QSemaphore sem_deadList;
 
 private:
     int healthPoint;
@@ -19,14 +25,10 @@ private:
     int bonusArmor;
 
 
-
-
 public:
     //donne une cellule à manger
     void eat(Cell*);
     void refreshSize();
-
-
 
 
     //setter
@@ -44,6 +46,8 @@ public:
     int getBonusHealthPoint(){return bonusHealthPoint;}
     int getBonusArmor(){return bonusSpeed;}
     double getBonusSpeed(){return bonusArmor;}
+
+    bool active;
 
 };
 
