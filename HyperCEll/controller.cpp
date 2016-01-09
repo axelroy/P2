@@ -10,7 +10,7 @@ QQueue<Cell*> Cell::deadList;
 char Collider::autorizedDirection = 0b11111111;
 char View::View::keysStatment = 0b00000000;
 
-int Settler::ProbMalusCell = 20;
+int Settler::ProbMalusCell = 0;
 int Settler::ProbBonusCell = 20;
 QSemaphore Cell::sem_deadList(1);
 
@@ -46,16 +46,17 @@ Controller::Controller(QWidget *parent) :
 
     camera->centerOn((mainCell->pos().x() - mainCell->scale()), (mainCell->pos().y() - mainCell->scale()) );
 
-    settler = new Settler(100, 6000, mainCell);
+    settler = new Settler(100, 10000, mainCell);
     for(int i = 0; i < nCells; i++){
         Cell * cell = new Cell(60);
         map->addItem(cell);
         Cell::deadList.enqueue(cell);
         settler->settle();
+        //qDebug() << i;
     }
 
 
-    Borderguard *borderguard = new Borderguard(10000, mainCell, map);
+    Borderguard *borderguard = new Borderguard(200000, mainCell, map);
     borderguard->start();
     mainCollider = new Collider(map, mainCell);
     mainCollider->start();

@@ -18,7 +18,7 @@ void Settler::settle()
     //qDebug() << "Settler " <<Cell::sem_deadList.available();
     if(Cell::sem_deadList.tryAcquire(1)){
         if(!Cell::deadList.isEmpty()){
-            qDebug() << Cell::deadList.count();
+            //qDebug() << Cell::deadList.count();
             cellTreated = Cell::deadList.dequeue();
 
 

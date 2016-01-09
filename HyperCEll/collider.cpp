@@ -5,7 +5,7 @@ Collider::Collider(CustomScene* map, Cell* refCell)
     this->map = map;
     this->refCell = refCell;
     c = new Cell();
-    area = 600;
+    area = 1200;
     qDebug() << "mirobolan";
     //this->map->collidingItems(this->refCell);
 }
@@ -41,7 +41,6 @@ void Collider::update()
 
         foreach (e, nearList) {
             if(refCell->collidesWithItem(e)){
-                qDebug() << "Collider";
                 c = reinterpret_cast<Cell*>(e);
 
                 if(!collidingCells.contains(c) && c->active==true){
@@ -60,16 +59,16 @@ void Collider::update()
 
                         Collider::autorizedDirection = 0b00000000;
                     }else{
-                        qDebug() << "stop";
+
                         //collision haut
                         if(refCell->sceneBoundingRect().center().y() > c->sceneBoundingRect().center().y()){
                             Collider::autorizedDirection = 0b11111110 & Collider::autorizedDirection;
-                            qDebug() << "Haut";
+
                         }
                         //bas
                         if(refCell->sceneBoundingRect().center().y() < c->sceneBoundingRect().center().y()){
                             Collider::autorizedDirection = 0b11111011 & Collider::autorizedDirection;
-                            qDebug() << "Haut";
+
                         }
                         //gauche
                         if(refCell->sceneBoundingRect().center().x() > c->sceneBoundingRect().center().x()){
