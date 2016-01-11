@@ -13,7 +13,7 @@
 
 #include <QTimeLine>
 #include <QHBoxLayout>
-
+// todo méthode qui retourne le centre de la cellule
 
 namespace Ui {
 class Controller;
