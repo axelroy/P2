@@ -53,7 +53,7 @@ View::View()
     //animation->setTranslationAt(1, 0,0 ) ;
 
     myScene->addItem(mainCell);
-    myScene->initSettling(1000, mainCell);
+    myScene->initSettling(100, mainCell);
 
     centerOn((mainCell->pos().x() - mainCell->scale()), (mainCell->pos().y() - mainCell->scale()) );
 

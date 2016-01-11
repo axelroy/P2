@@ -10,7 +10,7 @@
 class ia : public QThread
 {
 public:
-    ia(CustomScene* map,Cell iaCell);
+    ia(CustomScene* map,Cell* iaCell);
     void run();
     void move();
 

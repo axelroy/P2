@@ -13,13 +13,13 @@ ia::ia(CustomScene* map, Cell* iaCell)
 
 void ia::run()
 {
-    while(true){
+    /*hile(true){
         msleep(10);
         //choisis la cellule à bouffer
         //init
         target = iaCell;
         foreach(fetch, iaCellCollider->nearList){
-            if(fetch->getHealthPoint() < target*0.8){
+            if(fetch->getHealthPoint() < target->getHealthPoint()<*0.8){
                 if(target == iaCell){
                     target = fetch;
                 }
@@ -33,7 +33,7 @@ void ia::run()
         if(target->x() < iaCell->x() && target->y < iaCell->y()){
             if(target->y < iaCell->y())
         }
-    }
+    }*/
 }
 
 void ia::move()

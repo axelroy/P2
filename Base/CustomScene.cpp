@@ -6,7 +6,7 @@
 CustomScene::CustomScene(Cell *refCell)
 {
     this->refCell = refCell;
-    int area = 1000;
+    int area = 100;
 }
 
 void CustomScene::MoveCell(double x, double y, Cell * cell)
@@ -19,7 +19,7 @@ void CustomScene::MoveCell(double x, double y, Cell * cell)
 //peuple la Scene à l'initialisation
 void CustomScene::initSettling(int nCells, Cell * refCell){
     for(int i = 0; i < nCells; i++){
-        Cell * cell = new Cell(randInt(-10000, 10000),randInt(-1000, 1000), 60);
+        Cell * cell = new Cell(randInt(-100, 100),randInt(-100, 100), 60);
 
         giveProperties(cell, refCell, 10/*xzoom*/);
         addItem(cell);
@@ -111,9 +111,10 @@ void CustomScene::giveProperties(Cell * cell, Cell * refCell, int minRange){
 
 void CustomScene::borderguard(){
     //todo : fixer la zone active autours de la cellule de ref
+    qDebug() << refCell->x();
     QGraphicsItem * controledCell;
     foreach (controledCell, items()) {
-        if (controledCell->x() > refCell->x()+area || controledCell->x() < refCell->x()-area || controledCell->y() > refCell->y()+area || controledCell->y() < refCell->y()-area)
+        if (controledCell->x() < refCell->x()+area || controledCell->x() > refCell->x()-area || controledCell->y() > refCell->y()+area || controledCell->y() < refCell->y()-area)
         {
             // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
             deadList.enqueue(reinterpret_cast<Cell*>(controledCell));

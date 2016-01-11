@@ -46,6 +46,7 @@ Controller::Controller(QWidget *parent) :
 
     camera->centerOn((mainCell->pos().x() - mainCell->boundingRect().width()/2), (mainCell->pos().y() - mainCell->boundingRect().height()/2));
 
+    //faire une fonction Settler::initSettling()
     settler = new Settler(100, 10000, mainCell);
     for(int i = 0; i < nCells; i++){
         Cell * cell = new Cell(60);
@@ -60,7 +61,6 @@ Controller::Controller(QWidget *parent) :
     borderguard->start();
     mainCollider = new Collider(map, mainCell);
     mainCollider->start();
-
 
     startTimer(20);
     /*
