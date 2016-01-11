@@ -9,6 +9,7 @@ View::View()
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setTransformationAnchor(QGraphicsView::NoAnchor);
     setResizeAnchor(QGraphicsView::NoAnchor);
+
     QHBoxLayout * MainLayout = new QHBoxLayout(this);
 
     resize(800, 600);
@@ -65,4 +66,21 @@ void View::keyReleaseEvent(QKeyEvent* e)
             break;
         }
      }
+}
+
+void View::wheelEvent(QWheelEvent *event)
+{
+//    qDebug() << "pixelD" << event->pixelDelta();
+//    qDebug() << "angleD" << event->angleDelta();
+
+    if (event->angleDelta().y()>0)
+    {
+        scale(1.2, 1.2);
+    }
+    else
+    {
+        scale(0.8, 0.8);
+
+    }
+
 }

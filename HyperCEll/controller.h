@@ -37,11 +37,13 @@ private:
     int nCells;
     Collider* mainCollider;
     Settler* settler;
+    Cell* cTest;
     Ia* testIa;
 
 protected:
 
     void timerEvent(QTimerEvent* e);
+
 
 };
 

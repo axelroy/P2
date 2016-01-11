@@ -27,13 +27,9 @@ void Borderguard::run()
                             c->desactivate();
                             Cell::sem_deadList.release(1);
                             }
-
                     }
                 }
-
         }
-
     }
-
 }
 

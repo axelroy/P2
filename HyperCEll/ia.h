@@ -21,6 +21,8 @@ public:
 
     char getDirection() const;
 
+    Collider *getIaCellCollider() const;
+
 private:
     Cell* iaCell;
     Cell* target;

@@ -24,10 +24,12 @@ void Ia::run()
             if(fetch->getHealthPoint() < target->getHealthPoint()*0.8){
                 if(target == iaCell){
                     target = fetch;
-                    qDebug() << "Target focused";
+
                 }
                 else if(qSqrt(qPow(fetch->x()-iaCell->x(), 2) + qPow(fetch->y()-iaCell->y(), 2)) <
                         qSqrt(qPow(target->x()-iaCell->x(), 2) + qPow(target->y()-iaCell->y(), 2))){
+                    //qDebug() << "Fetch " << qSqrt(qPow(fetch->x()-iaCell->x(), 2) + qPow(fetch->y()-iaCell->y(), 2));
+                    //qDebug() << "Target" << qSqrt(qPow(target->x()-iaCell->x(), 2) + qPow(target->y()-iaCell->y(), 2));
                     target = fetch;
                 }
 
@@ -35,17 +37,18 @@ void Ia::run()
         }
 
         if(sem_control.tryAcquire(1)){
+            qDebug() << "Target attack";
             //se dirige vers la cellule
 
             //descendre
-            if(target->x() < iaCell->x()-5){
+            if(target->x() < (iaCell->x()-5)){
                 //gauche
-                if(target->y() < iaCell->y()-5){
+                if(target->y() < (iaCell->y()-5)){
                     direction = Config::ACTION_DOWN_LEFT;
                 }
 
                 //droite
-                else if(target->y() > iaCell->y()+5){
+                else if(target->y() > (iaCell->y()+5)){
                     direction = Config::ACTION_DOWN_RIGHT;
                 }
 
@@ -56,14 +59,14 @@ void Ia::run()
 
             }
             //monter
-            else if(target->x() > iaCell->x()+5){
+            else if(target->x() > (iaCell->x()+5)){
                 //gauche
                 if(target->y() < iaCell->y()-5){
                     direction = Config::ACTION_UP_LEFT;
                 }
 
                 //droite
-                else if(target->y() > iaCell->y()+5){
+                else if(target->y() > (iaCell->y()+5)){
                     direction = Config::ACTION_UP_RIGHT;
                 }
 
@@ -80,4 +83,9 @@ void Ia::run()
 char Ia::getDirection() const
 {
     return direction;
+}
+
+Collider *Ia::getIaCellCollider() const
+{
+    return iaCellCollider;
 }

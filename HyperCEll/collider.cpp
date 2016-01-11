@@ -65,7 +65,7 @@ void Collider::update()
                         c->eat(refCell);
                         refCell->hide();
 
-                        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
+                        autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
                     }else{
 
                         //collision haut

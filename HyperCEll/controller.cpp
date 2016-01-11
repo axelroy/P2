@@ -39,9 +39,17 @@ Controller::Controller(QWidget *parent) :
     /*testIa = new Ia(map, mainCell);
     testIa->start();*/
 
+    cTest = new Cell(Config::START_LIFE);
+    cTest->setBrush(Qt::darkMagenta);
+    cTest->setSpeed(Cell::BaseSpeedCell);
+
 
 
     map->addItem(mainCell);
+    map->addItem(cTest);
+
+    testIa = new Ia(map, cTest);
+    testIa->start();
 
     camera->centerOn((mainCell->pos().x() - mainCell->boundingRect().width()/2), (mainCell->pos().y() - mainCell->boundingRect().height()/2));
 
@@ -116,9 +124,67 @@ void Controller::timerEvent(QTimerEvent *e)
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
+
+
+
+
+
+
+
+    //Bot test
+    /*
+    if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_UP){
+        map->MoveCell(0.0,-cTest->getSpeed(), cTest);
+        testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
+    }
+
+    if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_UP_LEFT){
+        map->MoveCell(-cTest->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,-cTest->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, cTest);
+        testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
+    }
+
+    if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_LEFT){
+        map->MoveCell(-cTest->getSpeed(),0.0, cTest);
+        testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
+    }
+
+    if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_DOWN_LEFT){
+        map->MoveCell(-cTest->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,cTest->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, cTest);
+        testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
+    }
+
+    if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_DOWN){
+         map->MoveCell(0.0,cTest->getSpeed(), cTest);
+         testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
+     }
+
+    if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_DOWN_RIGHT){
+        map->MoveCell(cTest->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,cTest->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, cTest);
+        testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
+    }
+
+    if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_RIGHT){
+        map->MoveCell(cTest->getSpeed(),0.0, cTest);
+        testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
+    }
+
+    if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_UP_RIGHT){
+        map->MoveCell(cTest->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,-cTest->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, cTest);
+        testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
+    }
+
+
+*/
+
+
+
+
+
+
     //qDebug() << "move " <<CustomScene::autorizedDirection;
 
     camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
+
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
     mainCell->setSpeed((mainCell->getSpeed()-Cell::BaseSpeedCell)*Config::BONUS_SPEED_REGRESSION+Cell::BaseSpeedCell);
@@ -129,7 +195,10 @@ void Controller::timerEvent(QTimerEvent *e)
 
 
     mainCollider->update();
+    testIa->getIaCellCollider()->update();
 }
+
+
 
 
 Controller::~Controller()
