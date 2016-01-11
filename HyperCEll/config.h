@@ -33,6 +33,7 @@ public:
 
     //Keys
     static const char DIRECTION_AUTHORIZED_ALL = 0b11111111;
+    static const char DIRECTION_AUTHORIZED_NONE = 0b00000000;
     static const char INIT_KEYS_STATMENT = 0b00000000;
     /*w*/ static const char ACTION_UP = 0b00000001;
     /*a*/ static const char ACTION_LEFT = 0b00000010;

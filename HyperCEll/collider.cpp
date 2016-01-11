@@ -58,13 +58,13 @@ void Collider::update()
                         c->eat(refCell);
                         refCell->hide();
 
-                        Collider::autorizedDirection = 0b00000000;
+                        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
                     }else{
 
                         //collision haut
                         if(refCell->sceneBoundingRect().center().y() > c->sceneBoundingRect().center().y()){
                             Collider::autorizedDirection = 0b11111110 & Collider::autorizedDirection;
-
+                            // question sur l'utiliter de cet ligne
                         }
                         //bas
                         if(refCell->sceneBoundingRect().center().y() < c->sceneBoundingRect().center().y()){
