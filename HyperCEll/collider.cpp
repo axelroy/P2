@@ -52,6 +52,7 @@ void Collider::update()
                         refCell->eat(c);
                         c->hide();
                         c->active=false;
+                        // cree une méthode
                         Cell::deadList.enqueue(c);
                     }
                     else if(refCell->getHealthPoint() < reinterpret_cast<Cell*>(c)->getHealthPoint()*0.8){
@@ -63,21 +64,20 @@ void Collider::update()
 
                         //collision haut
                         if(refCell->sceneBoundingRect().center().y() > c->sceneBoundingRect().center().y()){
-                            Collider::autorizedDirection = 0b11111110 & Collider::autorizedDirection;
-                            // question sur l'utiliter de cet ligne
+                            Collider::autorizedDirection = Config::DIRECTION_UNAUTHORIZED_UP & Collider::autorizedDirection;
                         }
                         //bas
                         if(refCell->sceneBoundingRect().center().y() < c->sceneBoundingRect().center().y()){
-                            Collider::autorizedDirection = 0b11111011 & Collider::autorizedDirection;
+                            Collider::autorizedDirection = Config::DIRECTION_UNAUTHORIZED_DOWN & Collider::autorizedDirection;
 
                         }
                         //gauche
                         if(refCell->sceneBoundingRect().center().x() > c->sceneBoundingRect().center().x()){
-                            Collider::autorizedDirection = 0b11111101 & Collider::autorizedDirection;
+                            Collider::autorizedDirection = Config::DIRECTION_UNAUTHORIZED_LEFT & Collider::autorizedDirection;
                         }
                         //droite
                         if(refCell->sceneBoundingRect().center().x() < c->sceneBoundingRect().center().x()){
-                            Collider::autorizedDirection = 0b11110111 & Collider::autorizedDirection;
+                            Collider::autorizedDirection = Config::DIRECTION_UNAUTHORIZED_RIGHT & Collider::autorizedDirection;
 
                         }
 
