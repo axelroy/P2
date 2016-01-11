@@ -1,11 +1,12 @@
 #include "collider.h"
+#include "config.h"
 
 Collider::Collider(CustomScene* map, Cell* refCell)
 {
     this->map = map;
     this->refCell = refCell;
     c = new Cell();
-    area = 3000;
+    area = Config::COLIDER_ACTIVE_AREA;
     qDebug() << "mirobolan";
     //this->map->collidingItems(this->refCell);
 }
@@ -15,7 +16,7 @@ void Collider::run()
     qDebug() << "mirobolan au carre";
     map->Ouaf();
     while(true){
-        msleep(50);
+        msleep(Config::COLIDER_TIMER);
         foreach(s, map->items()){
             if(s!=refCell){
                 if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area){

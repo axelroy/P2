@@ -8,7 +8,7 @@
 double Cell::BaseSpeedCell = Config::BASE_SPEED_CELL;
 
 QQueue<Cell*> Cell::deadList;
-char Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+char Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
 char View::keysStatment = Config::INIT_KEYS_STATMENT;
 
 int Settler::ProbMalusCell = Config::PROBABILITY_MALUS_CELL;
@@ -72,42 +72,42 @@ void Controller::timerEvent(QTimerEvent *e)
     //Move up
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_UP){
         map->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
-        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_UP_LEFT){
-        map->MoveCell(-mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
-        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+        map->MoveCell(-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
+        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_LEFT){
         map->MoveCell(-mainCell->getSpeed(),0.0, mainCell);
-        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_DOWN_LEFT){
-        map->MoveCell(-mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
-        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+        map->MoveCell(-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
+        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_DOWN){
          map->MoveCell(0.0,mainCell->getSpeed(), mainCell);
-         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+         Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
      }
 
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_DOWN_RIGHT){
-        map->MoveCell(mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
-        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+        map->MoveCell(mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
+        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_RIGHT){
         map->MoveCell(mainCell->getSpeed(),0.0, mainCell);
-        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_UP_RIGHT){
-        map->MoveCell(mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
-        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+        map->MoveCell(mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
+        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     }
 
     //qDebug() << "move " <<CustomScene::autorizedDirection;
@@ -115,7 +115,7 @@ void Controller::timerEvent(QTimerEvent *e)
     camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
-    mainCell->setSpeed((mainCell->getSpeed()-Cell::BaseSpeedCell)*0.95+Cell::BaseSpeedCell);
+    mainCell->setSpeed((mainCell->getSpeed()-Cell::BaseSpeedCell)*Config::BONUS_SPEED_REGRESSION+Cell::BaseSpeedCell);
     //qDebug() << mainCell->getSpeed();
 
     settler->settle();

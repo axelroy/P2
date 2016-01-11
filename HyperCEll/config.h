@@ -11,7 +11,11 @@ public:
     static const int KEYS_TIMER = 20;
     static const int NB_CELLS = 20000;
     static const double START_LIFE = 500;
+
+    // mouvements
+    static const double DIAGONAL_SPEED_MULTIPLICATOR = 0.707;
     static const double BASE_SPEED_CELL = 5;
+    static const double BONUS_SPEED_REGRESSION = 0.95;
 
     //Settler
     static const int SETTLER_OFF_AREA = 100;
@@ -19,11 +23,16 @@ public:
     static const int PROBABILITY_MALUS_CELL = 0;
     static const int PROBABILITY_BONUS_CELL = 100;
 
+    //colider
+    static const double COLIDER_ACTIVE_AREA = 3000;
+    static const int COLIDER_TIMER = 50;
+
+
     //BorderGuard
     static const int BORDERGUARD_AREA = 11000;
 
     //Keys
-    static const char INIT_AUTHORIZED_DIRECTION = 0b11111111;
+    static const char DIRECTION_AUTHORIZED_ALL = 0b11111111;
     static const char INIT_KEYS_STATMENT = 0b00000000;
     /*w*/ static const char ACTION_UP = 0b00000001;
     /*a*/ static const char ACTION_LEFT = 0b00000010;
