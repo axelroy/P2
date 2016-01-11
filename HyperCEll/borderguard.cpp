@@ -12,21 +12,23 @@ void Borderguard::run()
     while(true){
         msleep(600);
         //qDebug() << "Borderguard " << Cell::sem_deadList.available();
-        if(Cell::sem_deadList.tryAcquire(1)){
-        foreach (controlledCell, map->items()) {
-            if (controlledCell->x() > refCell->x()+area || controlledCell->x() < refCell->x()-area || controlledCell->y() > refCell->y()+area || controlledCell->y() < refCell->y()-area)
-            {
+            foreach (controlledCell, map->items()) {
+                if (controlledCell->x() > refCell->x()+area || controlledCell->x() < refCell->x()-area || controlledCell->y() > refCell->y()+area || controlledCell->y() < refCell->y()-area)
+                {
+                    Cell* c =  reinterpret_cast<Cell*>(controlledCell);
+                    if(c->active==true){
+                        qDebug() << "Mexicain abbatu";
+                        // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
+                        if(Cell::sem_deadList.tryAcquire(1)){
+                            qDebug() << "Mexicain en enfer";
+                            Cell::deadList.enqueue(reinterpret_cast<Cell*>(controlledCell));
+                            c->active=false;
+                            Cell::sem_deadList.release(1);
+                            }
 
-                Cell* c =  reinterpret_cast<Cell*>(controlledCell);
-                if(c->active==true){
-                    qDebug() << "Mexicain abbatu";
-                    // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
-                    Cell::deadList.enqueue(reinterpret_cast<Cell*>(controlledCell));
-                    c->active=false;
+                    }
                 }
-            }
-        }
-        Cell::sem_deadList.release(1);
+
         }
 
     }

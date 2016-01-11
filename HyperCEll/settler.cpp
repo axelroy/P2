@@ -15,7 +15,7 @@ Settler::~Settler()
 //Implementer Range max
 void Settler::settle()
 {
-    //qDebug() << "Settler " <<Cell::sem_deadList.available();
+    //qDebug() << "Settler " << Cell::sem_deadList.available();
     if(Cell::sem_deadList.tryAcquire(1)){
         if(!Cell::deadList.isEmpty()){
             //qDebug() << Cell::deadList.count();
@@ -64,8 +64,9 @@ void Settler::settle()
 
 
             cellTreated->active = true;
-            Cell::sem_deadList.release(1);
+
         }
+        Cell::sem_deadList.release(1);
     }
 
 }

@@ -5,7 +5,7 @@ Collider::Collider(CustomScene* map, Cell* refCell)
     this->map = map;
     this->refCell = refCell;
     c = new Cell();
-    area = 1200;
+    area = 3000;
     qDebug() << "mirobolan";
     //this->map->collidingItems(this->refCell);
 }

@@ -11,7 +11,7 @@ char Collider::autorizedDirection = 0b11111111;
 char View::View::keysStatment = 0b00000000;
 
 int Settler::ProbMalusCell = 0;
-int Settler::ProbBonusCell = 20;
+int Settler::ProbBonusCell = 100;
 QSemaphore Cell::sem_deadList(1);
 
 
@@ -44,7 +44,7 @@ Controller::Controller(QWidget *parent) :
 
     map->addItem(mainCell);
 
-    camera->centerOn((mainCell->pos().x() - mainCell->scale()), (mainCell->pos().y() - mainCell->scale()) );
+    camera->centerOn((mainCell->pos().x() - mainCell->boundingRect().width()/2), (mainCell->pos().y() - mainCell->boundingRect().height()/2));
 
     settler = new Settler(100, 10000, mainCell);
     for(int i = 0; i < nCells; i++){
@@ -56,7 +56,7 @@ Controller::Controller(QWidget *parent) :
     }
 
 
-    Borderguard *borderguard = new Borderguard(200000, mainCell, map);
+    Borderguard *borderguard = new Borderguard(11000, mainCell, map);
     borderguard->start();
     mainCollider = new Collider(map, mainCell);
     mainCollider->start();
@@ -117,7 +117,7 @@ void Controller::timerEvent(QTimerEvent *e)
 
     //qDebug() << "move " <<CustomScene::autorizedDirection;
 
-    camera->centerOn((mainCell->pos().x() - mainCell->scale()), (mainCell->pos().y() - mainCell->scale()) );
+    camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
     mainCell->setSpeed((mainCell->getSpeed()-Cell::BaseSpeedCell)*0.95+Cell::BaseSpeedCell);

@@ -20,7 +20,8 @@ SOURCES += main.cpp\
     collider.cpp \
     borderguard.cpp \
     settler.cpp \
-    utility.cpp
+    utility.cpp \
+    ia.cpp
 
 HEADERS  += controller.h \
     cell.h \
@@ -29,6 +30,7 @@ HEADERS  += controller.h \
     collider.h \
     borderguard.h \
     settler.h \
-    utility.h
+    utility.h \
+    ia.h
 
 FORMS    += controller.ui
