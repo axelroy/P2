@@ -7,16 +7,16 @@
 #include <QtCore/qmath.h>
 
 
-class ia : public QThread
+class Ia : public QThread
 {
 public:
-    ia(CustomScene* map,Cell* iaCell);
+    Ia(CustomScene* map,Cell* iaCell);
     void run();
     void move();
 
 
 
-private:
+protected:
     Cell* iaCell;
     Cell* target;
     Cell* fetch;

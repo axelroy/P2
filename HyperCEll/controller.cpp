@@ -41,6 +41,10 @@ Controller::Controller(QWidget *parent) :
     mainCell = new Cell(500);
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Cell::BaseSpeedCell);
+    testIa = new Ia(map, mainCell);
+    testIa->start();
+
+
 
     map->addItem(mainCell);
 
@@ -62,7 +66,7 @@ Controller::Controller(QWidget *parent) :
     mainCollider = new Collider(map, mainCell);
     mainCollider->start();
 
-    startTimer(20);
+    startTimer(200);
     /*
     layout->addWidget(map);
     setLayout(layout);*/
@@ -75,6 +79,7 @@ void Controller::timerEvent(QTimerEvent *e)
 //CustomScene* myScene = dynamic_cast<CustomScene *>(scene());
     //Move up
 
+    /*
     if((View::keysStatment & Collider::autorizedDirection) == 0b00000001){
         map->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
         Collider::autorizedDirection = 0b11111111;
@@ -114,7 +119,7 @@ void Controller::timerEvent(QTimerEvent *e)
         map->MoveCell(mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
         Collider::autorizedDirection = 0b11111111;
     }
-
+    */
     //qDebug() << "move " <<CustomScene::autorizedDirection;
 
     camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
@@ -124,9 +129,9 @@ void Controller::timerEvent(QTimerEvent *e)
     //qDebug() << mainCell->getSpeed();
 
     settler->settle();
-    mainCollider->update();
+    //mainCollider->update();
 
-
+    testIa->move();
 
 }
 

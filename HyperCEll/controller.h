@@ -9,6 +9,7 @@
 #include "settler.h"
 #include "utility.h"
 #include "borderguard.h"
+#include "ia.h"
 #include <QWidget>
 
 #include <QTimeLine>
@@ -39,6 +40,7 @@ private:
     int nCells;
     Collider* mainCollider;
     Settler* settler;
+    Ia* testIa;
 
 protected:
 
