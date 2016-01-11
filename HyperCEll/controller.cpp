@@ -8,8 +8,8 @@
 double Cell::BaseSpeedCell = Config::BASE_SPEED_CELL;
 
 QQueue<Cell*> Cell::deadList;
-char Collider::autorizedDirection = 0b11111111;
-char View::View::keysStatment = 0b00000000;
+char Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
+char View::keysStatment = Config::INIT_KEYS_STATMENT;
 
 int Settler::ProbMalusCell = Config::PROBABILITY_MALUS_CELL;
 int Settler::ProbBonusCell = Config::PROBABILITY_BONUS_CELL;
@@ -26,9 +26,6 @@ Controller::Controller(QWidget *parent) :
     //QHBoxLayout *layout = new QHBoxLayout;
 
     //Cell::deadList/* = new QQueue<Cell*>*/;
-
-
-    View::keysStatment=0b00000000;
     map = new CustomScene();
     camera = new View();
 
@@ -56,7 +53,7 @@ Controller::Controller(QWidget *parent) :
     }
 
 
-    Borderguard *borderguard = new Borderguard(11000, mainCell, map);
+    Borderguard *borderguard = new Borderguard(Config::BORDERGUARD_AREA, mainCell, map);
     borderguard->start();
     mainCollider = new Collider(map, mainCell);
     mainCollider->start();
@@ -74,44 +71,44 @@ void Controller::timerEvent(QTimerEvent *e)
 //CustomScene* myScene = dynamic_cast<CustomScene *>(scene());
     //Move up
 
-    if((View::keysStatment & Collider::autorizedDirection) == 0b00000001){
+    if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_UP){
         map->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
-        Collider::autorizedDirection = 0b11111111;
+        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == 0b00000011){
         map->MoveCell(-mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
-        Collider::autorizedDirection = 0b11111111;
+        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == 0b00000010){
         map->MoveCell(-mainCell->getSpeed(),0.0, mainCell);
-        Collider::autorizedDirection = 0b11111111;
+        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == 0b00000110){
         map->MoveCell(-mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
-        Collider::autorizedDirection = 0b11111111;
+        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == 0b00000100){
          map->MoveCell(0.0,mainCell->getSpeed(), mainCell);
-         Collider::autorizedDirection = 0b11111111;
+         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
      }
 
     if((View::keysStatment & Collider::autorizedDirection) == 0b00001100){
         map->MoveCell(mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
-        Collider::autorizedDirection = 0b11111111;
+        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == 0b00001000){
         map->MoveCell(mainCell->getSpeed(),0.0, mainCell);
-        Collider::autorizedDirection = 0b11111111;
+        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
     if((View::keysStatment & Collider::autorizedDirection) == 0b00001001){
         map->MoveCell(mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
-        Collider::autorizedDirection = 0b11111111;
+        Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
     //qDebug() << "move " <<CustomScene::autorizedDirection;
@@ -124,9 +121,6 @@ void Controller::timerEvent(QTimerEvent *e)
 
     settler->settle();
     mainCollider->update();
-
-
-
 }
 
 
