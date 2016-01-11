@@ -58,14 +58,13 @@ void Collider::update()
                     if(refCell->getHealthPoint()*0.8 > c->getHealthPoint()){
                         refCell->eat(c);
                         c->desactivate();
-                        // cree une méthode
-                        Cell::deadList.enqueue(c);
+                        Cell::deadListEnqueue(c);
                     }
                     else if(refCell->getHealthPoint() < reinterpret_cast<Cell*>(c)->getHealthPoint()*0.8){
                         c->eat(refCell);
                         refCell->hide();
 
-                        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
+                        autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
                     }else{
 
                         //collision haut

@@ -8,8 +8,8 @@ public:
     Config(){}
 
     //General
-    static const int KEYS_TIMER = 20;
-    static const int NB_CELLS = 20000;
+    static const int KEYS_TIMER = 10;
+    static const int NB_CELLS = 1000;
     static const double START_LIFE = 500;
 
     // mouvements
@@ -18,18 +18,18 @@ public:
     static const double BONUS_SPEED_REGRESSION = 0.95;
 
     //Settler
-    static const int SETTLER_OFF_AREA = 100;
-    static const int SETTLER_ON_AREA = 10000;
-    static const int PROBABILITY_MALUS_CELL = 0;
-    static const int PROBABILITY_BONUS_CELL = 0;
+    static const int SETTLER_OFF_AREA = 500;
+    static const int SETTLER_ON_AREA = 3000;
+    static const int PROBABILITY_MALUS_CELL = 10;
+    static const int PROBABILITY_BONUS_CELL = 10;
 
     //colider
-    static const double COLIDER_ACTIVE_AREA = 3000;
-    static const int COLIDER_TIMER = 50;
+    static const double COLIDER_ACTIVE_AREA = 1000;
+    static const int COLIDER_TIMER = 100;
 
 
     //BorderGuard
-    static const int BORDERGUARD_AREA = 11000;
+    static const int BORDERGUARD_AREA = 5000;
 
     //direction
     static const char DIRECTION_AUTHORIZED_ALL = 0b11111111;

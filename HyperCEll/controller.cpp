@@ -5,8 +5,6 @@
 #include <QtDebug>
 
 
-double Cell::BaseSpeedCell = Config::BASE_SPEED_CELL;
-
 QQueue<Cell*> Cell::deadList;
 char View::keysStatment = Config::INIT_KEYS_STATMENT;
 
@@ -35,7 +33,7 @@ Controller::Controller(QWidget *parent) :
 
     mainCell = new Cell(Config::START_LIFE);
     mainCell->setBrush(Qt::blue);
-    mainCell->setSpeed(Cell::BaseSpeedCell);
+    mainCell->setSpeed(Config::BASE_SPEED_CELL);
     /*testIa = new Ia(map, mainCell);
     testIa->start();*/
 
@@ -50,7 +48,7 @@ Controller::Controller(QWidget *parent) :
     for(int i = 0; i < nCells; i++){
         Cell * cell = new Cell(Config::START_LIFE);
         map->addItem(cell);
-        Cell::deadList.enqueue(cell);
+        Cell::deadListEnqueue(cell);
         settler->settle();
         //qDebug() << i;
     }
@@ -121,7 +119,7 @@ void Controller::timerEvent(QTimerEvent *e)
     camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
-    mainCell->setSpeed((mainCell->getSpeed()-Cell::BaseSpeedCell)*Config::BONUS_SPEED_REGRESSION+Cell::BaseSpeedCell);
+    mainCell->setSpeed((mainCell->getSpeed()-Config::BASE_SPEED_CELL)*Config::BONUS_SPEED_REGRESSION+Config::BASE_SPEED_CELL);
     //qDebug() << mainCell->getSpeed();
 
     settler->settle();

@@ -23,7 +23,7 @@ void Borderguard::run()
                         // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
                         if(Cell::sem_deadList.tryAcquire(1)){
                             //qDebug() << "Mexicain en enfer";
-                            Cell::deadList.enqueue(reinterpret_cast<Cell*>(controlledCell));
+                            Cell::deadListEnqueue(reinterpret_cast<Cell*>(controlledCell));
                             c->desactivate();
                             Cell::sem_deadList.release(1);
                             }
