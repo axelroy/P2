@@ -31,8 +31,15 @@ public:
     //BorderGuard
     static const int BORDERGUARD_AREA = 11000;
 
-    //Keys
+    //direction
     static const char DIRECTION_AUTHORIZED_ALL = 0b11111111;
+    static const char DIRECTION_AUTHORIZED_NONE = 0b00000000;
+    static const char DIRECTION_UNAUTHORIZED_UP = 0b11111110;
+    static const char DIRECTION_UNAUTHORIZED_DOWN = 0b11111011;
+    static const char DIRECTION_UNAUTHORIZED_LEFT = 0b11111101;
+    static const char DIRECTION_UNAUTHORIZED_RIGHT = 0b11110111;
+
+    //Key
     static const char INIT_KEYS_STATMENT = 0b00000000;
     /*w*/ static const char ACTION_UP = 0b00000001;
     /*a*/ static const char ACTION_LEFT = 0b00000010;
@@ -42,6 +49,9 @@ public:
     /*a+s*/ static const char ACTION_DOWN_LEFT = 0b00000110;
     /*s+d*/ static const char ACTION_DOWN_RIGHT = 0b00001100;
     /*d+w*/ static const char ACTION_UP_RIGHT = 0b00001001;
+
+
+
 
 };
 

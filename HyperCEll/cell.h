@@ -25,11 +25,16 @@ private:
     int bonusArmor;
 
 
+    bool active;
+
+
 public:
     //donne une cellule à manger
     void eat(Cell*);
     void refreshSize();
-
+    void activate();
+    void desactivate();
+    bool isActive(){return active;}
 
     //setter
     void setHealthPoint(int value){healthPoint=value;}
@@ -46,8 +51,6 @@ public:
     int getBonusHealthPoint(){return bonusHealthPoint;}
     int getBonusArmor(){return bonusSpeed;}
     double getBonusSpeed(){return bonusArmor;}
-
-    bool active;
 
 };
 

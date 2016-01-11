@@ -51,40 +51,41 @@ void Collider::update()
             if(refCell->collidesWithItem(e)){
                 c = reinterpret_cast<Cell*>(e);
 
-                if(!collidingCells.contains(c) && c->active==true){
+                if(!collidingCells.contains(c) && c->isActive()){
                     collidingCells.push_back(c);
 
 
                     if(refCell->getHealthPoint()*0.8 > c->getHealthPoint()){
                         refCell->eat(c);
-                        c->hide();
-                        c->active=false;
+                        c->desactivate();
+                        // cree une méthode
                         Cell::deadList.enqueue(c);
                     }
                     else if(refCell->getHealthPoint() < reinterpret_cast<Cell*>(c)->getHealthPoint()*0.8){
                         c->eat(refCell);
                         refCell->hide();
 
-                        Collider::autorizedDirection = 0b00000000;
+                        Collider::autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
                     }else{
 
                         //collision haut
                         if(refCell->sceneBoundingRect().center().y() > c->sceneBoundingRect().center().y()){
-                            autorizedDirection = 0b11111110 & Collider::autorizedDirection;
 
+                            autorizedDirection = Config::DIRECTION_UNAUTHORIZED_UP & Collider::autorizedDirection;
                         }
                         //bas
                         if(refCell->sceneBoundingRect().center().y() < c->sceneBoundingRect().center().y()){
-                            autorizedDirection = 0b11111011 & Collider::autorizedDirection;
+                            autorizedDirection = Config::DIRECTION_UNAUTHORIZED_DOWN & Collider::autorizedDirection;
 
                         }
                         //gauche
                         if(refCell->sceneBoundingRect().center().x() > c->sceneBoundingRect().center().x()){
-                            autorizedDirection = 0b11111101 & Collider::autorizedDirection;
+
+                            autorizedDirection = Config::DIRECTION_UNAUTHORIZED_LEFT & Collider::autorizedDirection;
                         }
                         //droite
                         if(refCell->sceneBoundingRect().center().x() < c->sceneBoundingRect().center().x()){
-                            autorizedDirection = 0b11110111 & Collider::autorizedDirection;
+                            autorizedDirection = Config::DIRECTION_UNAUTHORIZED_RIGHT & Collider::autorizedDirection;
 
                         }
 

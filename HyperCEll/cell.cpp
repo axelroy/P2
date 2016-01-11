@@ -37,3 +37,15 @@ void Cell::eat(Cell * c)
 
     this->refreshSize();
 }
+
+void Cell::activate()
+{
+    this->show();
+    active=true;
+}
+
+void Cell::desactivate()
+{
+    this->hide();
+    active=false;
+}

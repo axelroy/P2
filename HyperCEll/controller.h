@@ -15,6 +15,7 @@
 #include <QTimeLine>
 #include <QHBoxLayout>
 // todo méthode qui retourne le centre de la cellule
+// méthode dans cell de désactivation des cellules / activation
 
 namespace Ui {
 class Controller;
@@ -29,10 +30,6 @@ public:
     ~Controller();
 
 private:
-    // 0-> w
-    // 1-> a
-    // 2-> s
-    // 3-> d
     char keysStatment;
     CustomScene* map;
     View* camera;

@@ -59,11 +59,7 @@ void Settler::settle()
 
 
             cellTreated->refreshSize();
-            cellTreated->show();
-
-
-
-            cellTreated->active = true;
+            cellTreated->activate();
 
         }
         Cell::sem_deadList.release(1);
