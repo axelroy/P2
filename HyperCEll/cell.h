@@ -7,15 +7,9 @@
 
 class Cell : public QGraphicsEllipseItem
 {
-public:
-    Cell(QGraphicsItem* parent = 0);
-    Cell(int healthPoint, QGraphicsItem* parent = 0);
-
-    static double BaseSpeedCell;
-    static QQueue<Cell*> deadList;
-    static QSemaphore sem_deadList;
-
 private:
+    static QQueue<Cell*> deadList;
+
     int healthPoint;
     int armor;
     double speed;
@@ -24,11 +18,19 @@ private:
     double bonusSpeed;
     int bonusArmor;
 
-
     bool active;
 
-
 public:
+    Cell(QGraphicsItem* parent = 0);
+    Cell(int healthPoint, QGraphicsItem* parent = 0);
+
+    static QSemaphore sem_deadList;
+
+    // travail sur la deadlist
+    static void deadListEnqueue(Cell* c){Cell::deadList.enqueue(c);}
+    static Cell* deadListDequeue(){return Cell::deadList.dequeue();}
+    static bool deadListIsEmpty(){return Cell::deadList.isEmpty();}
+
     //donne une cellule à manger
     void eat(Cell*);
     void refreshSize();

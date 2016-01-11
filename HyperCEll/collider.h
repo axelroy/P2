@@ -17,7 +17,7 @@ public:
     void run();
 
 
-    QList<Cell*> collidingCells;
+
     void update();
     QList<QGraphicsItem*> nearList;
 
@@ -25,6 +25,7 @@ public:
     void setAutorizedDirection(char value);
 
 private:
+    QList<Cell*> collidingCells;
     CustomScene* map;
     Cell* refCell;
     Cell * c;
@@ -32,8 +33,6 @@ private:
     QGraphicsItem* s;
     qreal area;
     char autorizedDirection;
-
-
 
 };
 
