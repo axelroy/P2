@@ -73,7 +73,7 @@ void Controller::timerEvent(QTimerEvent *e)
 {
 //CustomScene* myScene = dynamic_cast<CustomScene *>(scene());
     //Move up
-
+    //Controller::
     if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP){
         map->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);

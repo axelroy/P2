@@ -19,7 +19,6 @@ void Borderguard::run()
                 if (controlledCell->x() > refCell->x()+area || controlledCell->x() < refCell->x()-area || controlledCell->y() > refCell->y()+area || controlledCell->y() < refCell->y()-area)
                 {
                     Cell* c =  reinterpret_cast<Cell*>(controlledCell);
-
                     if(c->isActive()){
                         // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
                         if(Cell::sem_deadList.tryAcquire(1)){
@@ -30,10 +29,7 @@ void Borderguard::run()
                             }
                     }
                 }
-
         }
-
     }
-
 }
 
