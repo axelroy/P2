@@ -7,6 +7,7 @@ Ia::Ia(CustomScene* map, Cell* iaCell)
     this->map = map;
     iaCellCollider = new Collider(map, iaCell);
     iaCellCollider->start();
+    sem_control.release();
 
 }
 
@@ -33,56 +34,50 @@ void Ia::run()
             }
         }
 
-        //se dirige vers la cellule
-        //descendre
-        if(target->x() < iaCell->x()-5){
-            //gauche
-            if(target->y() < iaCell->y()-5){
-                nextX = iaCell->x()-iaCell->getSpeed()*0.707;
-                nextY = iaCell->y()-iaCell->getSpeed()*0.707;
+        if(sem_control.tryAcquire(1)){
+            //se dirige vers la cellule
+
+            //descendre
+            if(target->x() < iaCell->x()-5){
+                //gauche
+                if(target->y() < iaCell->y()-5){
+                    direction = Config::ACTION_DOWN_LEFT;
+                }
+
+                //droite
+                else if(target->y() > iaCell->y()+5){
+                    direction = Config::ACTION_DOWN_RIGHT;
+                }
+
+                //Juste bas
+                else{
+                    direction = Config::ACTION_DOWN;
+                }
 
             }
+            //monter
+            else if(target->x() > iaCell->x()+5){
+                //gauche
+                if(target->y() < iaCell->y()-5){
+                    direction = Config::ACTION_UP_LEFT;
+                }
 
-            //droite
-            else if(target->y() > iaCell->y()+5){
-                nextX = iaCell->x()+iaCell->getSpeed()*0.707;
-                nextY = iaCell->y()-iaCell->getSpeed()*0.707;
+                //droite
+                else if(target->y() > iaCell->y()+5){
+                    direction = Config::ACTION_UP_RIGHT;
+                }
+
+                //Juste haut
+                else{
+                    direction = Config::ACTION_DOWN;
+                }
             }
-
-            //Juste bas
-            else{
-                nextX = iaCell->x();
-                nextY = iaCell->y()-iaCell->getSpeed();
-            }
-
+            sem_control.release();
         }
-        //monter
-        else if(target->x() > iaCell->x()+5){
-            //gauche
-            if(target->y() < iaCell->y()-5){
-                nextX = iaCell->x()-iaCell->getSpeed()*0.707;
-                nextY = iaCell->y()+iaCell->getSpeed()*0.707;
-            }
-
-            //droite
-            else if(target->y() > iaCell->y()+5){
-                nextX = iaCell->x()+iaCell->getSpeed()*0.707;
-                nextY = iaCell->y()+iaCell->getSpeed()*0.707;
-            }
-
-            //Juste haut
-            else{
-                nextX = iaCell->x();
-                nextY = iaCell->y()+iaCell->getSpeed();
-            }
-        }
-
-        qDebug() << "vert " << iaCell->x() - nextX;
-        qDebug() << "hori " << iaCell->y() - nextY;
     }
 }
 
-void Ia::move()
+char Ia::getDirection() const
 {
-    map->MoveCell(nextX, nextY, iaCell);
+    return direction;
 }

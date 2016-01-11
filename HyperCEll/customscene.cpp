@@ -11,6 +11,8 @@ void CustomScene::MoveCell(double x, double y, Cell * cell)
 
 }
 
+
+//Ouaf
 void CustomScene::Ouaf()
 {
     qDebug() << "Ouaf";

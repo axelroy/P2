@@ -16,10 +16,13 @@ public:
     Collider(CustomScene* map, Cell* refCell);
     void run();
 
-    static char autorizedDirection;
+
     QList<Cell*> collidingCells;
     void update();
     QList<QGraphicsItem*> nearList;
+
+    char getAutorizedDirection() const;
+    void setAutorizedDirection(char value);
 
 private:
     CustomScene* map;
@@ -28,6 +31,7 @@ private:
     QGraphicsItem* e;
     QGraphicsItem* s;
     qreal area;
+    char autorizedDirection;
 
 
 

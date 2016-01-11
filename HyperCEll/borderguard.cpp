@@ -7,6 +7,8 @@ Borderguard::Borderguard(double area, Cell* refCell, CustomScene* map)
     this->map = map;
 }
 
+
+//Detecte les cellules trop éloignée et les mets dans la deadlist
 void Borderguard::run()
 {
     while(true){

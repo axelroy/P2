@@ -1,23 +1,29 @@
 #include "collider.h"
+#include "config.h"
 
 Collider::Collider(CustomScene* map, Cell* refCell)
 {
     this->map = map;
     this->refCell = refCell;
     c = new Cell();
-    area = 3000;
+    area = Config::COLIDER_ACTIVE_AREA;
     qDebug() << "mirobolan";
+    autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     //this->map->collidingItems(this->refCell);
 }
 
+
+//indexe les cellules proche dans une liste
 void Collider::run()
 {
     qDebug() << "mirobolan au carre";
     map->Ouaf();
     while(true){
-        msleep(50);
+        msleep(Config::COLIDER_TIMER);
+        //Pour toute les cellules de la scene
         foreach(s, map->items()){
             if(s!=refCell){
+                //met celle qui sont proche dans la nearlist
                 if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area){
                     if(!nearList.contains(s)){
                         nearList.push_back(s);
@@ -34,6 +40,8 @@ void Collider::run()
     }
 
 
+
+//Detecte les collisions et
 void Collider::update()
 {
     collidingCells.clear();
@@ -62,21 +70,21 @@ void Collider::update()
 
                         //collision haut
                         if(refCell->sceneBoundingRect().center().y() > c->sceneBoundingRect().center().y()){
-                            Collider::autorizedDirection = 0b11111110 & Collider::autorizedDirection;
+                            autorizedDirection = 0b11111110 & Collider::autorizedDirection;
 
                         }
                         //bas
                         if(refCell->sceneBoundingRect().center().y() < c->sceneBoundingRect().center().y()){
-                            Collider::autorizedDirection = 0b11111011 & Collider::autorizedDirection;
+                            autorizedDirection = 0b11111011 & Collider::autorizedDirection;
 
                         }
                         //gauche
                         if(refCell->sceneBoundingRect().center().x() > c->sceneBoundingRect().center().x()){
-                            Collider::autorizedDirection = 0b11111101 & Collider::autorizedDirection;
+                            autorizedDirection = 0b11111101 & Collider::autorizedDirection;
                         }
                         //droite
                         if(refCell->sceneBoundingRect().center().x() < c->sceneBoundingRect().center().x()){
-                            Collider::autorizedDirection = 0b11110111 & Collider::autorizedDirection;
+                            autorizedDirection = 0b11110111 & Collider::autorizedDirection;
 
                         }
 
@@ -86,6 +94,16 @@ void Collider::update()
             }
         //}
     }
+}
+
+char Collider::getAutorizedDirection() const
+{
+    return autorizedDirection;
+}
+
+void Collider::setAutorizedDirection(char value)
+{
+    autorizedDirection = value;
 }
 
 

@@ -20,7 +20,6 @@ void View::keyPressEvent(QKeyEvent* e)
     {
         switch (e->key()) {
         case Qt::Key_W:
-            qDebug() << "hoOot";
             View::keysStatment=View::keysStatment | 0b00000001;
             break;
 

@@ -31,6 +31,7 @@ HEADERS  += controller.h \
     borderguard.h \
     settler.h \
     utility.h \
-    ia.h
+    ia.h \
+    config.h
 
 FORMS    += controller.ui

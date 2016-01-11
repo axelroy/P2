@@ -4,7 +4,9 @@
 #include "cell.h"
 #include "collider.h"
 #include "customscene.h"
+#include "config.h"
 #include <QtCore/qmath.h>
+#include "QSemaphore"
 
 
 class Ia : public QThread
@@ -13,10 +15,13 @@ public:
     Ia(CustomScene* map,Cell* iaCell);
     void run();
     void move();
+    QSemaphore sem_control;
 
 
 
-protected:
+    char getDirection() const;
+
+private:
     Cell* iaCell;
     Cell* target;
     Cell* fetch;
@@ -24,6 +29,7 @@ protected:
     double nextX;
     double nextY;
     CustomScene* map;
+    char direction;
 
     Cell* selectTarget(Cell* proTarget);
 
