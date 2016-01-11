@@ -1,30 +1,29 @@
 #include "controller.h"
 #include "ui_controller.h"
+#include "config.h"
 
 #include <QtDebug>
 
 
-double Cell::BaseSpeedCell = 5;
+double Cell::BaseSpeedCell = Config::BASE_SPEED_CELL;
 
 QQueue<Cell*> Cell::deadList;
 char Collider::autorizedDirection = 0b11111111;
 char View::View::keysStatment = 0b00000000;
 
-int Settler::ProbMalusCell = 0;
-int Settler::ProbBonusCell = 100;
+int Settler::ProbMalusCell = Config::PROBABILITY_MALUS_CELL;
+int Settler::ProbBonusCell = Config::PROBABILITY_BONUS_CELL;
 QSemaphore Cell::sem_deadList(1);
 
 
 Controller::Controller(QWidget *parent) :
     QWidget(parent)
 {
-    nCells = 20000;
+    nCells = Config::NB_CELLS;
 
     qsrand(QTime::currentTime().msec());
     qDebug() << "Lancement de l'app";
     //QHBoxLayout *layout = new QHBoxLayout;
-
-    Cell::BaseSpeedCell = 5;
 
     //Cell::deadList/* = new QQueue<Cell*>*/;
 
@@ -38,7 +37,7 @@ Controller::Controller(QWidget *parent) :
 
     camera->show();
 
-    mainCell = new Cell(500);
+    mainCell = new Cell(Config::START_LIFE);
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Cell::BaseSpeedCell);
 
@@ -47,9 +46,9 @@ Controller::Controller(QWidget *parent) :
     camera->centerOn((mainCell->pos().x() - mainCell->boundingRect().width()/2), (mainCell->pos().y() - mainCell->boundingRect().height()/2));
 
     //faire une fonction Settler::initSettling()
-    settler = new Settler(100, 10000, mainCell);
+    settler = new Settler(Config::SETTLER_OFF_AREA, Config::SETTLER_ON_AREA, mainCell);
     for(int i = 0; i < nCells; i++){
-        Cell * cell = new Cell(60);
+        Cell * cell = new Cell(Config::START_LIFE);
         map->addItem(cell);
         Cell::deadList.enqueue(cell);
         settler->settle();
@@ -62,7 +61,7 @@ Controller::Controller(QWidget *parent) :
     mainCollider = new Collider(map, mainCell);
     mainCollider->start();
 
-    startTimer(20);
+    startTimer(Config::KEYS_TIMER);
     /*
     layout->addWidget(map);
     setLayout(layout);*/
