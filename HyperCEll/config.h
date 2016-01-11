@@ -29,6 +29,10 @@ public:
     /*a*/ static const char ACTION_LEFT = 0b00000010;
     /*s*/ static const char ACTION_DOWN = 0b00000100;
     /*d*/ static const char ACTION_RIGHT = 0b00001000;
+    /*w+a*/ static const char ACTION_UP_LEFT = 0b00000011;
+    /*a+s*/ static const char ACTION_DOWN_LEFT = 0b00000110;
+    /*s+d*/ static const char ACTION_DOWN_RIGHT = 0b00001100;
+    /*d+w*/ static const char ACTION_UP_RIGHT = 0b00001001;
 
 };
 

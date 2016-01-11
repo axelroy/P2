@@ -70,43 +70,42 @@ void Controller::timerEvent(QTimerEvent *e)
 {
 //CustomScene* myScene = dynamic_cast<CustomScene *>(scene());
     //Move up
-
     if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_UP){
         map->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
-    if((View::keysStatment & Collider::autorizedDirection) == 0b00000011){
+    if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_UP_LEFT){
         map->MoveCell(-mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
-    if((View::keysStatment & Collider::autorizedDirection) == 0b00000010){
+    if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_LEFT){
         map->MoveCell(-mainCell->getSpeed(),0.0, mainCell);
         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
-    if((View::keysStatment & Collider::autorizedDirection) == 0b00000110){
+    if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_DOWN_LEFT){
         map->MoveCell(-mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
-    if((View::keysStatment & Collider::autorizedDirection) == 0b00000100){
+    if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_DOWN){
          map->MoveCell(0.0,mainCell->getSpeed(), mainCell);
          Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
      }
 
-    if((View::keysStatment & Collider::autorizedDirection) == 0b00001100){
+    if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_DOWN_RIGHT){
         map->MoveCell(mainCell->getSpeed()*0.707,mainCell->getSpeed()*0.707, mainCell);
         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
-    if((View::keysStatment & Collider::autorizedDirection) == 0b00001000){
+    if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_RIGHT){
         map->MoveCell(mainCell->getSpeed(),0.0, mainCell);
         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
 
-    if((View::keysStatment & Collider::autorizedDirection) == 0b00001001){
+    if((View::keysStatment & Collider::autorizedDirection) == Config::ACTION_UP_RIGHT){
         map->MoveCell(mainCell->getSpeed()*0.707,-mainCell->getSpeed()*0.707, mainCell);
         Collider::autorizedDirection = Config::INIT_AUTHORIZED_DIRECTION;
     }
