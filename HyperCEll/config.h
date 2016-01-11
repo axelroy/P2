@@ -30,6 +30,7 @@ public:
 
     //BorderGuard
     static const int BORDERGUARD_AREA = 5000;
+    static const int BORDERGUARD_SLEEP = 600;
 
     //direction
     static const char DIRECTION_AUTHORIZED_ALL = 0b11111111;
