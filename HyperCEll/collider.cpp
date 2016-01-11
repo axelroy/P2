@@ -44,14 +44,13 @@ void Collider::update()
             if(refCell->collidesWithItem(e)){
                 c = reinterpret_cast<Cell*>(e);
 
-                if(!collidingCells.contains(c) && c->active==true){
+                if(!collidingCells.contains(c) && c->isActive()){
                     collidingCells.push_back(c);
 
 
                     if(refCell->getHealthPoint()*0.8 > c->getHealthPoint()){
                         refCell->eat(c);
-                        c->hide();
-                        c->active=false;
+                        c->desactivate();
                         // cree une méthode
                         Cell::deadList.enqueue(c);
                     }
