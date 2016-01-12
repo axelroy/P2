@@ -86,7 +86,6 @@ void Controller::timerEvent(QTimerEvent *e)
 {
 //CustomScene* myScene = dynamic_cast<CustomScene *>(scene());
     //Move up
-    //Controller::
     if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP){
         map->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
@@ -185,7 +184,6 @@ void Controller::timerEvent(QTimerEvent *e)
 
 
     //qDebug() << "move " <<CustomScene::autorizedDirection;
-
     camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
 
     /*
@@ -196,20 +194,15 @@ void Controller::timerEvent(QTimerEvent *e)
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
     mainCell->setSpeed((mainCell->getSpeed()-Config::BASE_SPEED_CELL)*Config::BONUS_SPEED_REGRESSION+Config::BASE_SPEED_CELL);
+
     //qDebug() << mainCell->getSpeed();
-
     settler->settle();
+
     //mainCollider->update();
-
-
     mainCollider->update();
 
 }
 
-
-
-
 Controller::~Controller()
 {
-
 }
