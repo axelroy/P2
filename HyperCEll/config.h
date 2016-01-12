@@ -10,7 +10,7 @@ public:
     //General
     static const int KEYS_TIMER = 10;
     static const int NB_CELLS = 1000;
-    static const double START_LIFE = 500;
+    static const double START_LIFE = 1000;
 
     // mouvements
     static const double DIAGONAL_SPEED_MULTIPLICATOR = 0.707;
@@ -24,7 +24,7 @@ public:
     static const int PROBABILITY_BONUS_CELL = 10;
 
     //colider
-    static const double COLIDER_ACTIVE_AREA = 1000;
+    static const double COLIDER_ACTIVE_AREA = 3000;
     static const int COLIDER_TIMER = 100;
 
 

@@ -34,20 +34,18 @@ Controller::Controller(QWidget *parent) :
     mainCell = new Cell(Config::START_LIFE);
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Config::BASE_SPEED_CELL);
-    /*testIa = new Ia(map, mainCell);
-    testIa->start();*/
+    testIa = new Ia(map, mainCell);
+    testIa->start();
 
     cTest = new Cell(Config::START_LIFE);
     cTest->setBrush(Qt::darkMagenta);
     cTest->setSpeed(Config::BASE_SPEED_CELL);
+    cTest->setPos(1000, 1000);
 
 
 
     map->addItem(mainCell);
     map->addItem(cTest);
-
-    testIa = new Ia(map, cTest);
-    testIa->start();
 
     camera->centerOn((mainCell->pos().x() - mainCell->boundingRect().width()/2), (mainCell->pos().y() - mainCell->boundingRect().height()/2));
 
@@ -130,7 +128,7 @@ void Controller::timerEvent(QTimerEvent *e)
 
 
     //Bot test
-    /*
+
     if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_UP){
         map->MoveCell(0.0,-cTest->getSpeed(), cTest);
         testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
@@ -172,7 +170,7 @@ void Controller::timerEvent(QTimerEvent *e)
     }
 
 
-*/
+
 
 
 
@@ -181,7 +179,9 @@ void Controller::timerEvent(QTimerEvent *e)
 
     //qDebug() << "move " <<CustomScene::autorizedDirection;
 
-    camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
+    //camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
+
+    camera->centerOn((cTest->pos().x() + cTest->boundingRect().width()/2), (cTest->pos().y() + cTest->boundingRect().height()/2));
 
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires

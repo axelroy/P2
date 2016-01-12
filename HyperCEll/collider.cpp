@@ -24,7 +24,7 @@ void Collider::run()
         foreach(s, map->items()){
             if(s!=refCell){
                 //met celle qui sont proche dans la nearlist
-                if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area){
+                if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area ){
                     if(!nearList.contains(s)){
                         nearList.push_back(s);
                     }
