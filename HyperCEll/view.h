@@ -13,6 +13,8 @@ public:
 protected:
     void keyPressEvent(QKeyEvent* e);
     void keyReleaseEvent(QKeyEvent* e);
+signals:
+    void gamePause(bool active);
 };
 
 #endif // VIEW_H

@@ -1,4 +1,6 @@
 #include "view.h"
+#include "controller.h"
+
 
 #include <QtDebug>
 
@@ -10,6 +12,8 @@ View::View()
     setTransformationAnchor(QGraphicsView::NoAnchor);
     setResizeAnchor(QGraphicsView::NoAnchor);
     QHBoxLayout * MainLayout = new QHBoxLayout(this);
+
+    connect(this,SIGNAL(gamePause(bool),)
 
     resize(800, 600);
 }
@@ -33,6 +37,10 @@ void View::keyPressEvent(QKeyEvent* e)
 
         case Qt::Key_D:
             View::keysStatment=View::keysStatment | 0b00001000;
+            break;
+        case Qt::Key_Escape:
+            if(View::keysStatment & 0b10000000 == 0b10000000)
+
             break;
 
         default:
