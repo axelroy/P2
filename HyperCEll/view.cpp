@@ -13,7 +13,7 @@ View::View()
     setResizeAnchor(QGraphicsView::NoAnchor);
     QHBoxLayout * MainLayout = new QHBoxLayout(this);
 
-    connect(this,SIGNAL(gamePause(bool),)
+    //connect(this,SIGNAL(gamePause(bool),)
 
     resize(800, 600);
 }

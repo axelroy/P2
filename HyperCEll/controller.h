@@ -28,10 +28,10 @@ class Controller : public QWidget
 public:
     explicit Controller(QWidget *parent = 0);
     ~Controller();
-    void pause(){killTimer();}
+    //void pause(){killTimer();}
 
-public slots:
-    void gamePause(bool active);
+/*public slots:
+    void gamePause(bool active);*/
 
 
 private:
