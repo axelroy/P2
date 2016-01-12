@@ -1,7 +1,6 @@
 #ifndef SETTLER_H
 #define SETTLER_H
 
-#include <QThread>
 #include <QGraphicsScene>
 
 #include <cell.h>
@@ -9,7 +8,7 @@
 #include <QDebug>
 #include <QtCore/qmath.h>
 
-class Settler : public QThread
+class Settler
 {
 private:
     double rangeMin;

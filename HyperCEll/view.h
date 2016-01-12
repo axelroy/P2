@@ -14,7 +14,8 @@ protected:
     void keyPressEvent(QKeyEvent* e);
     void keyReleaseEvent(QKeyEvent* e);
 signals:
-    void gamePause(bool active);
+    //void gamePause(bool active);
+    void wheelEvent(QWheelEvent *);
 };
 
 #endif // VIEW_H
