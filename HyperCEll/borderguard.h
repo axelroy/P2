@@ -14,6 +14,8 @@ public:
     void run();
 
 
+    void setArea(double value);
+
 private:
     double area;
     Cell* refCell;

@@ -22,6 +22,7 @@ public:
     static const int SETTLER_ON_AREA = 3000;
     static const int PROBABILITY_MALUS_CELL = 10;
     static const int PROBABILITY_BONUS_CELL = 10;
+    static const double RANGE_ADAPTER = 1.05;
 
     //colider
     static const double COLIDER_ACTIVE_AREA = 3000;

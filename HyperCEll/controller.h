@@ -37,8 +37,8 @@ private:
     int nCells;
     Collider* mainCollider;
     Settler* settler;
-    Cell* cTest;
-    Ia* testIa;
+    //Cell* cTest;
+    //Ia* testIa;
 
 protected:
 

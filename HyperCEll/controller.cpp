@@ -4,6 +4,8 @@
 
 #include <QtDebug>
 
+#define TEST_BOTpas
+
 
 QQueue<Cell*> Cell::deadList;
 char View::keysStatment = Config::INIT_KEYS_STATMENT;
@@ -34,6 +36,10 @@ Controller::Controller(QWidget *parent) :
     mainCell = new Cell(Config::START_LIFE);
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Config::BASE_SPEED_CELL);
+    map->addItem(mainCell);
+
+/*
+#ifdef TEST_BOT
     testIa = new Ia(map, mainCell);
     testIa->start();
 
@@ -44,8 +50,9 @@ Controller::Controller(QWidget *parent) :
 
 
 
-    map->addItem(mainCell);
+
     map->addItem(cTest);
+#endif*/
 
     camera->centerOn((mainCell->pos().x() - mainCell->boundingRect().width()/2), (mainCell->pos().y() - mainCell->boundingRect().height()/2));
 
@@ -124,8 +131,8 @@ void Controller::timerEvent(QTimerEvent *e)
 
 
 
-
-
+/*
+#ifdef TEST_BOT
 
     //Bot test
 
@@ -170,7 +177,7 @@ void Controller::timerEvent(QTimerEvent *e)
     }
 
 
-
+#endif*/
 
 
 
@@ -179,10 +186,13 @@ void Controller::timerEvent(QTimerEvent *e)
 
     //qDebug() << "move " <<CustomScene::autorizedDirection;
 
-    //camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
+    camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
 
+    /*
+#ifdef TEST_BOT
     camera->centerOn((cTest->pos().x() + cTest->boundingRect().width()/2), (cTest->pos().y() + cTest->boundingRect().height()/2));
-
+    testIa->getIaCellCollider()->update();
+#endif*/
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
     mainCell->setSpeed((mainCell->getSpeed()-Config::BASE_SPEED_CELL)*Config::BONUS_SPEED_REGRESSION+Config::BASE_SPEED_CELL);
@@ -193,7 +203,7 @@ void Controller::timerEvent(QTimerEvent *e)
 
 
     mainCollider->update();
-    testIa->getIaCellCollider()->update();
+
 }
 
 

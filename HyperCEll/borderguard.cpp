@@ -33,3 +33,8 @@ void Borderguard::run()
     }
 }
 
+void Borderguard::setArea(double value)
+{
+    area = value;
+}
+
