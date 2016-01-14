@@ -192,7 +192,6 @@ void Controller::timerEvent(QTimerEvent *e)
     mainCollider->update();
     testIa->getIaCellCollider()->update();
 }
-
 Controller::~Controller()
 {
 }
