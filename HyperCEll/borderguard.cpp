@@ -13,6 +13,7 @@ Borderguard::Borderguard(double area, Cell* refCell, CustomScene* map)
 void Borderguard::run()
 {
     while(true){
+        //qDebug() << "a " << refCell->x();
         msleep(Config::BORDERGUARD_SLEEP);
         //qDebug() << "Borderguard " << Cell::sem_deadList.available();
             foreach (controlledCell, map->items()) {

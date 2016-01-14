@@ -18,7 +18,6 @@ void Settler::settle()
     //Adapte des ranges selon les tailles de la main cell
     rangeMin = Config::SETTLER_OFF_AREA * qSqrt(qSqrt(refCell->getHealthPoint()/Config::START_LIFE));
     rangeMax = Config::SETTLER_ON_AREA * qSqrt(qSqrt(refCell->getHealthPoint()/Config::START_LIFE));
-    qDebug() << rangeMin;
 
     //qDebug() << "Settler " << Cell::sem_deadList.available();
     if(Cell::sem_deadList.tryAcquire(1)){
@@ -58,7 +57,7 @@ void Settler::settle()
                 cellTreated->setBonusHealthPoint(((double)(Utility::randInt(1, 5))/10)*refCell->getHealthPoint());
                 cellTreated->setBonusSpeed(((double)(Utility::randInt(2, 20))/10)*refCell->getSpeed());
             }else {
-                cellTreated->setHealthPoint(((double)(Utility::randInt(3, 20))/10)*refCell->getHealthPoint());
+                cellTreated->setHealthPoint(((double)(Utility::randInt(Config::HEALTH_MIN, Config::HEALTH_MAX))/10)*refCell->getHealthPoint());
                 cellTreated->setBrush(Qt::darkYellow);
             }
 

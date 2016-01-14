@@ -20,9 +20,11 @@ public:
     //Settler
     static const int SETTLER_OFF_AREA = 500;
     static const int SETTLER_ON_AREA = 3000;
-    static const int PROBABILITY_MALUS_CELL = 10;
-    static const int PROBABILITY_BONUS_CELL = 10;
+    static const int PROBABILITY_MALUS_CELL = 0;
+    static const int PROBABILITY_BONUS_CELL = 0;
     static const double RANGE_ADAPTER = 1.05;
+    static const int HEALTH_MIN = 3;
+    static const int HEALTH_MAX = 10;
 
     //colider
     static const double COLIDER_ACTIVE_AREA = 3000;
@@ -51,9 +53,6 @@ public:
     /*a+s*/ static const char ACTION_DOWN_LEFT = 0b00000110;
     /*s+d*/ static const char ACTION_DOWN_RIGHT = 0b00001100;
     /*d+w*/ static const char ACTION_UP_RIGHT = 0b00001001;
-
-
-
 
 };
 
