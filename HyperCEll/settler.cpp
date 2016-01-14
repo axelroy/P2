@@ -15,6 +15,11 @@ Settler::~Settler()
 //Implementer Range max
 void Settler::settle()
 {
+    //Adapte des ranges selon les tailles de la main cell
+    rangeMin = Config::SETTLER_OFF_AREA * qSqrt(qSqrt(refCell->getHealthPoint()/Config::START_LIFE));
+    rangeMax = Config::SETTLER_ON_AREA * qSqrt(qSqrt(refCell->getHealthPoint()/Config::START_LIFE));
+    qDebug() << rangeMin;
+
     //qDebug() << "Settler " << Cell::sem_deadList.available();
     if(Cell::sem_deadList.tryAcquire(1)){
         if(!Cell::deadListIsEmpty()){

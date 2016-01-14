@@ -14,41 +14,51 @@ Ia::Ia(CustomScene* map, Cell* iaCell)
 
 void Ia::run()
 {
+    sleep(2);
+    qDebug() << iaCellCollider->nearList.count();
+    target = reinterpret_cast<Cell*>(iaCellCollider->nearList.last());
+    qDebug() << target;
     while(true){
-        sleep(2);
+
+        qDebug() << iaCell->x();
+
+        int i = 0;
         //choisis la cellule à bouffer
         //init
-        target = iaCell;
+        msleep(80);
         foreach(QGraphicsItem* s,  (iaCellCollider->nearList)){
             fetch = reinterpret_cast<Cell*>(s);
-            if(fetch->getHealthPoint() < target->getHealthPoint()*0.8){
-                if(target == iaCell){
-                    target = fetch;
 
-                }
-                else if(qSqrt(qPow(fetch->x()-iaCell->x(), 2) + qPow(fetch->y()-iaCell->y(), 2)) <
-                        qSqrt(qPow(target->x()-iaCell->x(), 2) + qPow(target->y()-iaCell->y(), 2))){
-                    //qDebug() << "Fetch " << qSqrt(qPow(fetch->x()-iaCell->x(), 2) + qPow(fetch->y()-iaCell->y(), 2));
-                    //qDebug() << "Target" << qSqrt(qPow(target->x()-iaCell->x(), 2) + qPow(target->y()-iaCell->y(), 2));
-                    target = fetch;
-                }
+            if(fetch->getHealthPoint() < target->getHealthPoint()*1){
+                //qDebug() << "fetching " << qSqrt(qPow(fetch->x()-iaCell->x(), 2) + qPow(fetch->y()-iaCell->y(), 2));
+                 if((qPow(fetch->x()-iaCell->x(), 2) + qPow(fetch->y()-iaCell->y(), 2)) <
+                            (qPow(target->x()-iaCell->x(), 2) + qPow(target->y()-iaCell->y(), 2))){
+
+                        i++;
+                        qDebug() << "Fetch " << i << " " << qSqrt(qPow(fetch->x()-iaCell->x(), 2) + qPow(fetch->y()-iaCell->y(), 2));
+                        qDebug() << "Target " << i << " " << qSqrt(qPow(target->x()-iaCell->x(), 2) + qPow(target->y()-iaCell->y(), 2));
+                        target = fetch;
+                 }
 
             }
         }
 
-        if(sem_control.tryAcquire(1)){
-            qDebug() << "Target attack";
+        qDebug() << "Target attack " << i << " " << qSqrt(qPow(target->x()-iaCell->x(), 2) + qPow(target->y()-iaCell->y(), 2));
+        target->setBrush(Qt::black);
+
+        //if(sem_control.tryAcquire(1)){
+
             //se dirige vers la cellule
 
             //descendre
-            if(target->x() < (iaCell->x()-5)){
+            if(target->y() < (iaCell->y()-10)){
                 //gauche
-                if(target->y() < (iaCell->y()-5)){
+                if(target->x() < (iaCell->x()-10)){
                     direction = Config::ACTION_DOWN_LEFT;
                 }
 
                 //droite
-                else if(target->y() > (iaCell->y()+5)){
+                else if(target->x() > (iaCell->x()+10)){
                     direction = Config::ACTION_DOWN_RIGHT;
                 }
 
@@ -59,14 +69,14 @@ void Ia::run()
 
             }
             //monter
-            else if(target->x() > (iaCell->x()+5)){
+            else if(target->y() > (iaCell->y()+10)){
                 //gauche
-                if(target->y() < iaCell->y()-5){
+                if(target->x() < iaCell->x()-10){
                     direction = Config::ACTION_UP_LEFT;
                 }
 
                 //droite
-                else if(target->y() > (iaCell->y()+5)){
+                else if(target->x() > (iaCell->x()+10)){
                     direction = Config::ACTION_UP_RIGHT;
                 }
 
@@ -75,10 +85,23 @@ void Ia::run()
                     direction = Config::ACTION_DOWN;
                 }
             }
-            sem_control.release();
+            //horizontale
+            else{
+                //gauche
+                if(target->x() < iaCell->x()-10){
+                    direction = Config::ACTION_RIGHT;
+                }
+
+                //droite
+                else if(target->x() > (iaCell->x()+10)){
+                    direction = Config::ACTION_LEFT;
+                }
+            //}
+            //sem_control.release();
         }
     }
 }
+
 
 char Ia::getDirection() const
 {

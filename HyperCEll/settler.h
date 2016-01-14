@@ -8,6 +8,8 @@
 #include <QDebug>
 #include <QtCore/qmath.h>
 
+#include "config.h"
+
 class Settler
 {
 private:

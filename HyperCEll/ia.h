@@ -1,6 +1,8 @@
 #ifndef IA_H
 #define IA_H
 
+#include <QAtomicPointer>
+
 #include "cell.h"
 #include "collider.h"
 #include "customscene.h"

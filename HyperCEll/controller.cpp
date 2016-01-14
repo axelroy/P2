@@ -4,6 +4,8 @@
 
 #include <QtDebug>
 
+#define TEST_BOTpas
+
 
 QQueue<Cell*> Cell::deadList;
 char View::keysStatment = Config::INIT_KEYS_STATMENT;
@@ -34,20 +36,23 @@ Controller::Controller(QWidget *parent) :
     mainCell = new Cell(Config::START_LIFE);
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Config::BASE_SPEED_CELL);
-    /*testIa = new Ia(map, mainCell);
-    testIa->start();*/
+    map->addItem(mainCell);
+
+/*
+#ifdef TEST_BOT
+    testIa = new Ia(map, mainCell);
+    testIa->start();
 
     cTest = new Cell(Config::START_LIFE);
     cTest->setBrush(Qt::darkMagenta);
     cTest->setSpeed(Config::BASE_SPEED_CELL);
+    cTest->setPos(1000, 1000);
 
 
 
-    map->addItem(mainCell);
+
     map->addItem(cTest);
-
-    testIa = new Ia(map, cTest);
-    testIa->start();
+#endif*/
 
     camera->centerOn((mainCell->pos().x() - mainCell->boundingRect().width()/2), (mainCell->pos().y() - mainCell->boundingRect().height()/2));
 
@@ -125,11 +130,11 @@ void Controller::timerEvent(QTimerEvent *e)
 
 
 
-
-
+/*
+#ifdef TEST_BOT
 
     //Bot test
-    /*
+
     if((testIa->getDirection() & testIa->getIaCellCollider()->getAutorizedDirection()) == Config::ACTION_UP){
         map->MoveCell(0.0,-cTest->getSpeed(), cTest);
         testIa->getIaCellCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
@@ -171,7 +176,7 @@ void Controller::timerEvent(QTimerEvent *e)
     }
 
 
-*/
+#endif*/
 
 
 
@@ -181,6 +186,11 @@ void Controller::timerEvent(QTimerEvent *e)
     //qDebug() << "move " <<CustomScene::autorizedDirection;
     camera->centerOn((mainCell->pos().x() + mainCell->boundingRect().width()/2), (mainCell->pos().y() + mainCell->boundingRect().height()/2));
 
+    /*
+#ifdef TEST_BOT
+    camera->centerOn((cTest->pos().x() + cTest->boundingRect().width()/2), (cTest->pos().y() + cTest->boundingRect().height()/2));
+    testIa->getIaCellCollider()->update();
+#endif*/
 
     //Réajustement de la vitesse de la Maincell, les bonus sont temporaires
     mainCell->setSpeed((mainCell->getSpeed()-Config::BASE_SPEED_CELL)*Config::BONUS_SPEED_REGRESSION+Config::BASE_SPEED_CELL);
@@ -190,7 +200,7 @@ void Controller::timerEvent(QTimerEvent *e)
 
     //mainCollider->update();
     mainCollider->update();
-    testIa->getIaCellCollider()->update();
+
 }
 Controller::~Controller()
 {
