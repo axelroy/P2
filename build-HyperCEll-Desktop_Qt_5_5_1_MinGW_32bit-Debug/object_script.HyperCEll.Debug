@@ -1,0 +1,16 @@
+INPUT(
+./debug\main.o
+./debug\controller.o
+./debug\cell.o
+./debug\customscene.o
+./debug\view.o
+./debug\collider.o
+./debug\borderguard.o
+./debug\settler.o
+./debug\utility.o
+./debug\deadlist.o
+./debug\bot.o
+./debug\qrc_ressources.o
+./debug\moc_controller.o
+./debug\moc_collider.o
+);
