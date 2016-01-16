@@ -6,9 +6,9 @@ Ia::Ia(CustomScene* map)
 
     this->map = map;
     iaCellCollider = new Collider(map, this);
-    iaCellCollider->start();
+    iaCellCollider->start(QThread::LowPriority);
     sem_control.release();
-    this->start();
+    this->start(QThread::LowPriority);
     this->setSpeed(Config::BASE_SPEED_CELL);
 }
 
@@ -16,39 +16,43 @@ Ia::Ia(CustomScene* map)
 void Ia::run()
 {
     //qDebug() << "olol";
-    sleep(2);
+
     //qDebug() << iaCellCollider->nearList.count();
     target = reinterpret_cast<Cell*>(iaCellCollider->nearList.last());
     //qDebug() << target;
 
 
-    while(active){
-        int i = 0;
+    while(true){
+        if(active){
 
-        //choisis la cellule à bouffer
-        //init
-        //if(i<1){
-        msleep(80);
-        foreach(QGraphicsItem* s,  (iaCellCollider->nearList)){
-            fetch = reinterpret_cast<Cell*>(s);
+            msleep(Config::IA_TIMER);
+
+            int i = 0;
+
+            //choisis la cellule à bouffer
+            //init
+            //if(i<1){
+            msleep(80);
+            foreach(QGraphicsItem* s,  (iaCellCollider->nearList)){
+                fetch = reinterpret_cast<Cell*>(s);
 
 
-            if(fetch->getHealthPoint() < getHealthPoint()*1){
+                if(fetch->getHealthPoint() < getHealthPoint()*1){
 
-                //qDebug() << "fetching " << qSqrt(qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
-                 if((qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2)) <
+                    //qDebug() << "fetching " << qSqrt(qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
+                    if((qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2)) <
                             (qPow((target->x() + target->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2))){
 
                         i++;
                         //qDebug() << "Fetch " << i << " " << qSqrt(qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
                         //qDebug() << "Target " << i << " " << qSqrt(qPow((target->x() + target->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
                         target = fetch;
-                 }
+                    }
 
+                }
             }
-        }
 
-        /*
+            /*
         //qDebug() << "Target attack " << i << " " << qSqrt(qPow((target->x() + target->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
         //qDebug() << "Target x : " << (target->x() + target->sceneBoundingRect().width()/2);
         //qDebug() << "Target y : " << (target->y() + target->sceneBoundingRect().height()/2);
@@ -57,10 +61,7 @@ void Ia::run()
         //qDebug() << "Ia y " << (y() + sceneBoundingRect().height()/2);
         */
 
-        target->setBrush(Qt::black);
-
-
-        //if(sem_control.tryAcquire(1)){
+            //if(sem_control.tryAcquire(1)){
 
             //se dirige vers la cellule
 
@@ -115,8 +116,9 @@ void Ia::run()
             else{
                 direction = Config::INIT_KEYS_STATMENT;
 
-            //}
-            //sem_control.release();
+                //}
+                //sem_control.release();
+            }
         }
     }
 }
@@ -132,5 +134,12 @@ Collider *Ia::getIaCellCollider() const
     return iaCellCollider;
 }
 
+void Ia::activate()
+{
+    setBrush(Qt::black);
+    show();
+    active=true;
+
+}
 
 

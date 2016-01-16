@@ -62,9 +62,9 @@ Controller::Controller(QWidget *parent) :
 
     //Instancie et démarre le borderguard et le collider
     Borderguard *borderguard = new Borderguard(Config::BORDERGUARD_AREA, mainCell, map);
-    borderguard->start();
+    borderguard->start(QThread::LowestPriority);
     mainCollider = new Collider(map, mainCell);
-    mainCollider->start();
+    mainCollider->start(QThread::NormalPriority);
 
     startTimer(Config::KEYS_TIMER);
 
@@ -86,37 +86,37 @@ void Controller::timerEvent(QTimerEvent *e)
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP_LEFT){
+    else if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP_LEFT){
         map->MoveCell(-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_LEFT){
+    else if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_LEFT){
         map->MoveCell(-mainCell->getSpeed(),0.0, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_LEFT){
+    else if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_LEFT){
         map->MoveCell(-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN){
+    else if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN){
          map->MoveCell(0.0,mainCell->getSpeed(), mainCell);
          mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
      }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_RIGHT){
+    else if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_RIGHT){
         map->MoveCell(mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_RIGHT){
+    else if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_RIGHT){
         map->MoveCell(mainCell->getSpeed(),0.0, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP_RIGHT){
+    else if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP_RIGHT){
         map->MoveCell(mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }

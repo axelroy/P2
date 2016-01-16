@@ -4,7 +4,6 @@
 
 Cell::Cell(QGraphicsItem* parent) : QGraphicsEllipseItem(parent)
 {
-    qDebug() << "Contructeur Cell";
     healthPoint = 0;
     armor = 0;
     speed = 0;

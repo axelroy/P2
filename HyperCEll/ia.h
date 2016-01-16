@@ -22,6 +22,7 @@ public:
 
     Collider *getIaCellCollider() const;
 
+    void activate();
 private:
     Cell* iaCell;
     Cell* target;
