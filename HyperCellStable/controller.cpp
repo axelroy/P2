@@ -9,7 +9,7 @@
 #include "utility.h"
 #include "borderguard.h"
 
-#include <QtDebug>
+#include <QDebug>
 #include <QTime>
 
 /*============================================*/
@@ -82,7 +82,11 @@ void Controller::timerEvent(QTimerEvent *e)
     settler->settle();
 
     //mainCollider->update();
-    mainCollider->update();
+
+    if (mainCell->isActive())
+    {
+        mainCollider->update();
+    }
 
 }
 
@@ -125,7 +129,7 @@ void Controller::eat(Cell &c1, Cell &c2)
         manageDeadCell(c1);
         c2.refreshSize();
     }
-    scaleView();
+    //scaleView();
 }
 
 void Controller::newGame()
@@ -134,6 +138,7 @@ void Controller::newGame()
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Config::START_SPEED);
     mainCell->setArmor(Config::START_ARMOR);
+    mainCell->activate();
 
     foreach (QGraphicsItem * item, map->items()) {
         Cell *c;
@@ -145,11 +150,14 @@ void Controller::newGame()
 void Controller::manageDeadCell(Cell &c)
 {
     c.desactivate();
-
+    //qDebug()<<"is player" << c.isPlayer();
+    //qDebug()<<"c" << &c;
+    //qDebug()<<"mainCell" << &mainCell;
     if(c.isPlayer())
     {
         emit blockMovement();
         //Todo widget for restart
+        //newGame();
     }
     else
     {
@@ -157,9 +165,10 @@ void Controller::manageDeadCell(Cell &c)
     }
 }
 
-void Controller::scaleView()
+//TODO bad code, fix algorithm to calculate ratio. A const factor are defin in ZOOM_OFFSET
+/*void Controller::scaleView()
 {
-    //TODO bad code, fix algorithm to calculate ratio. A const factor are defin in ZOOM_OFFSET
+
     int areaCell = mainCell->getHealthPoint();
     int areaView = camera->width()*camera->height();
 
@@ -167,8 +176,7 @@ void Controller::scaleView()
 
     ratio = 1; //avoid bug for now
     camera->scale(ratio,ratio);
-    qDebug()<<"r "<<ratio<<" v "<<areaView<<" c "<<areaCell;
-}
+}*/
 
 void Controller::initialisation()
 {
@@ -183,6 +191,8 @@ void Controller::initialisation()
     //parametrize
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Config::START_SPEED);
+    mainCell->setIsPlayer(true);
+    mainCell->activate();
 
     map->addItem(mainCell);
 
@@ -192,8 +202,9 @@ void Controller::initialisation()
 
     settler->initSettle(map,Config::NB_CELLS);
 
-    //connect
+    //connects
     connect(mainCollider, SIGNAL(collision(Cell&,Cell&)),this, SLOT(on_collider_collision(Cell&,Cell&)));
+    connect(this, SIGNAL(blockMovement()),mainCollider, SLOT(on_Controller_BlockMovement()));
 
     //start the thread if config active
     if(Config::ACTIVE_BORDERGUARD)
