@@ -142,6 +142,7 @@ void Controller::newGame()
 
     foreach (QGraphicsItem * item, map->items()) {
         Cell *c;
+        // static cast ?
         //todo cast qgraph to cell
         //DeadList::addCell(c);
     }
