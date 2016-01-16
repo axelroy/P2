@@ -34,4 +34,7 @@ HEADERS  += controller.h \
     ia.h \
     config.h
 
-FORMS    += controller.ui
+FORMS    +=
+
+RESOURCES += \
+    ressources.qrc

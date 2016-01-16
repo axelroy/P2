@@ -7,7 +7,7 @@ Collider::Collider(CustomScene* map, Cell* refCell)
     this->refCell = refCell;
     c = new Cell();
     area = Config::COLIDER_ACTIVE_AREA;
-    qDebug() << "mirobolan";
+    //qDebug() << "mirobolan";
     autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     //this->map->collidingItems(this->refCell);
 }
@@ -16,7 +16,7 @@ Collider::Collider(CustomScene* map, Cell* refCell)
 //indexe les cellules proche dans une liste
 void Collider::run()
 {
-    qDebug() << "mirobolan au carre";
+    //qDebug() << "mirobolan au carre";
     map->Ouaf();
     while(true){
         msleep(Config::COLIDER_TIMER);

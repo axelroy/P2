@@ -1,5 +1,4 @@
 #include "controller.h"
-#include "ui_controller.h"
 #include "config.h"
 
 #include <QtDebug>
@@ -20,17 +19,14 @@ Controller::Controller(QWidget *parent) :
 {
     nCells = Config::NB_CELLS;
 
-    qsrand(QTime::currentTime().msec());
-    qDebug() << "Lancement de l'app";
-    //QHBoxLayout *layout = new QHBoxLayout;
+    //qsrand(QTime::currentTime().msec());
+    //qDebug() << "Lancement de l'app";
 
     //Cell::deadList/* = new QQueue<Cell*>*/;
     map = new CustomScene();
     camera = new View();
 
-
     camera->setScene(map);
-
     camera->show();
 
     mainCell = new Cell(Config::START_LIFE);

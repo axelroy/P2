@@ -6,13 +6,14 @@
 
 View::View()
 {
-    setStyleSheet("background-color:white");
+    //setBackgroundBrush(QBrush(Qt::white, QPixmap(":/Ressources/background.jpg")));
+
+    setStyleSheet("background-image:url(:/Ressources/background.jpg)");
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setTransformationAnchor(QGraphicsView::NoAnchor);
     setResizeAnchor(QGraphicsView::NoAnchor);
 
-    QHBoxLayout * MainLayout = new QHBoxLayout(this);
 
     //connect(this,SIGNAL(gamePause(bool),)
 
