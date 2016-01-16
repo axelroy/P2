@@ -43,7 +43,9 @@ private:
     Collider* mainCollider;
     Settler* settler;
     Cell* cTest;
-    Ia* testIa;
+    Ia* iaCell[Config::NB_IA_CELLS];
+    void moveIa(Ia* iaCell);
+
 
 protected:
 

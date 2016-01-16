@@ -10,6 +10,7 @@ public:
     //General
     static const int KEYS_TIMER = 10;
     static const int NB_CELLS = 1000;
+    static const int NB_IA_CELLS = 20;
     static const double START_LIFE = 1000;
 
     // mouvements

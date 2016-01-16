@@ -1,26 +1,28 @@
 #include "ia.h"
 
 
-Ia::Ia(CustomScene* map, Cell* iaCell)
+Ia::Ia(CustomScene* map)
 {
-    this->iaCell = iaCell;
+
     this->map = map;
-    iaCellCollider = new Collider(map, iaCell);
+    iaCellCollider = new Collider(map, this);
     iaCellCollider->start();
     sem_control.release();
-
+    this->start();
+    this->setSpeed(Config::BASE_SPEED_CELL);
 }
 
 
 void Ia::run()
 {
+    //qDebug() << "olol";
     sleep(2);
-    qDebug() << iaCellCollider->nearList.count();
+    //qDebug() << iaCellCollider->nearList.count();
     target = reinterpret_cast<Cell*>(iaCellCollider->nearList.last());
-    qDebug() << target;
+    //qDebug() << target;
 
 
-    while(true){
+    while(active){
         int i = 0;
 
         //choisis la cellule à bouffer
@@ -31,45 +33,46 @@ void Ia::run()
             fetch = reinterpret_cast<Cell*>(s);
 
 
-            if(fetch->getHealthPoint() < iaCell->getHealthPoint()*1){
+            if(fetch->getHealthPoint() < getHealthPoint()*1){
 
-                //qDebug() << "fetching " << qSqrt(qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(iaCell->x() + iaCell->sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(iaCell->y() + iaCell->sceneBoundingRect().height()/2), 2));
-                 if((qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(iaCell->x() + iaCell->sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(iaCell->y() + iaCell->sceneBoundingRect().height()/2), 2)) <
-                            (qPow((target->x() + target->sceneBoundingRect().width()/2)-(iaCell->x() + iaCell->sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(iaCell->y() + iaCell->sceneBoundingRect().height()/2), 2))){
+                //qDebug() << "fetching " << qSqrt(qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
+                 if((qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2)) <
+                            (qPow((target->x() + target->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2))){
 
                         i++;
-                        qDebug() << "Fetch " << i << " " << qSqrt(qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(iaCell->x() + iaCell->sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(iaCell->y() + iaCell->sceneBoundingRect().height()/2), 2));
-                        qDebug() << "Target " << i << " " << qSqrt(qPow((target->x() + target->sceneBoundingRect().width()/2)-(iaCell->x() + iaCell->sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(iaCell->y() + iaCell->sceneBoundingRect().height()/2), 2));
+                        //qDebug() << "Fetch " << i << " " << qSqrt(qPow((fetch->x() + fetch->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((fetch->y() + fetch->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
+                        //qDebug() << "Target " << i << " " << qSqrt(qPow((target->x() + target->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
                         target = fetch;
                  }
 
             }
         }
 
-        qDebug() << "Target attack " << i << " " << qSqrt(qPow((target->x() + target->sceneBoundingRect().width()/2)-(iaCell->x() + iaCell->sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(iaCell->y() + iaCell->sceneBoundingRect().height()/2), 2));
-        qDebug() << "Target x : " << (target->x() + target->sceneBoundingRect().width()/2);
-        qDebug() << "Target y : " << (target->y() + target->sceneBoundingRect().height()/2);
+        /*
+        //qDebug() << "Target attack " << i << " " << qSqrt(qPow((target->x() + target->sceneBoundingRect().width()/2)-(x() + sceneBoundingRect().width()/2), 2) + qPow((target->y() + target->sceneBoundingRect().height()/2)-(y() + sceneBoundingRect().height()/2), 2));
+        //qDebug() << "Target x : " << (target->x() + target->sceneBoundingRect().width()/2);
+        //qDebug() << "Target y : " << (target->y() + target->sceneBoundingRect().height()/2);
 
-        qDebug() << "Ia x " << (iaCell->x() + iaCell->sceneBoundingRect().width()/2);
-        qDebug() << "Ia y " << (iaCell->y() + iaCell->sceneBoundingRect().height()/2);
-
+        //qDebug() << "Ia x " << (x() + sceneBoundingRect().width()/2);
+        //qDebug() << "Ia y " << (y() + sceneBoundingRect().height()/2);
+        */
 
         target->setBrush(Qt::black);
-        target->sceneBoundingRect().width()/2;
+
 
         //if(sem_control.tryAcquire(1)){
 
             //se dirige vers la cellule
 
             //descendre
-            if((target->y() + target->sceneBoundingRect().height()/2) > ((iaCell->y() + iaCell->sceneBoundingRect().height()/2)-0)){
+            if((target->y() + target->sceneBoundingRect().height()/2) > ((y() + sceneBoundingRect().height()/2)+20)){
                 //gauche
-                if((target->x() + target->sceneBoundingRect().width()/2) < ((iaCell->x() + iaCell->sceneBoundingRect().width()/2)-0)){
+                if((target->x() + target->sceneBoundingRect().width()/2) < ((x() + sceneBoundingRect().width()/2)-20)){
                     direction = Config::ACTION_DOWN_LEFT;
                 }
 
                 //droite
-                else if((target->x() + target->sceneBoundingRect().width()/2) > ((iaCell->x() + iaCell->sceneBoundingRect().width()/2)+0)){
+                else if((target->x() + target->sceneBoundingRect().width()/2) > ((x() + sceneBoundingRect().width()/2)+20)){
                     direction = Config::ACTION_DOWN_RIGHT;
                 }
 
@@ -80,14 +83,14 @@ void Ia::run()
 
             }
             //monter
-            else if((target->y() + target->sceneBoundingRect().height()/2) < ((iaCell->y() + iaCell->sceneBoundingRect().height()/2)+0)){
+            else if((target->y() + target->sceneBoundingRect().height()/2) < ((y() + sceneBoundingRect().height()/2)-20)){
                 //gauche
-                if((target->x() + target->sceneBoundingRect().width()/2) < (iaCell->x() + iaCell->sceneBoundingRect().width()/2)-0){
+                if((target->x() + target->sceneBoundingRect().width()/2) < (x() + sceneBoundingRect().width()/2)-20){
                     direction = Config::ACTION_UP_LEFT;
                 }
 
                 //droite
-                else if((target->x() + target->sceneBoundingRect().width()/2) > ((iaCell->x() + iaCell->sceneBoundingRect().width()/2)+0)){
+                else if((target->x() + target->sceneBoundingRect().width()/2) > ((x() + sceneBoundingRect().width()/2)+20)){
                     direction = Config::ACTION_UP_RIGHT;
                 }
 
@@ -99,13 +102,13 @@ void Ia::run()
             //horizontale
 
             //gauche
-            else if((target->x() + target->sceneBoundingRect().width()/2) < (iaCell->x() + iaCell->sceneBoundingRect().width()/2)-0){
-                direction = Config::ACTION_RIGHT;
+            else if((target->x() + target->sceneBoundingRect().width()/2) < ((x() + sceneBoundingRect().width()/2))){
+                direction = Config::ACTION_LEFT;
             }
 
             //droite
-            else if((target->x() + target->sceneBoundingRect().width()/2) > ((iaCell->x() + iaCell->sceneBoundingRect().width()/2)+0)){
-                direction = Config::ACTION_LEFT;
+            else if((target->x() + target->sceneBoundingRect().width()/2) > ((x() + sceneBoundingRect().width()/2))){
+                direction = Config::ACTION_RIGHT;
             }
 
             //ne fait rien
@@ -128,3 +131,6 @@ Collider *Ia::getIaCellCollider() const
 {
     return iaCellCollider;
 }
+
+
+

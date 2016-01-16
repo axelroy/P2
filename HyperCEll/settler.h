@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 
 #include <cell.h>
+#include <ia.h>
 #include <utility.h>
 #include <QDebug>
 #include <QtCore/qmath.h>
@@ -18,6 +19,8 @@ private:
     Cell* refCell;
     Cell* cellTreated;
     int randomTypeCell;
+
+    Ia* iaiaiaia;
 
 public:
     Settler(double rangeMin, double rangeMax, Cell* refCell);

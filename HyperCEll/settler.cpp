@@ -1,4 +1,5 @@
 #include "settler.h"
+#include <QCoreApplication>
 
 Settler::Settler(double rangeMin, double rangeMax, Cell *refCell)
 {
@@ -64,7 +65,6 @@ void Settler::settle()
 
             cellTreated->refreshSize();
             cellTreated->activate();
-
         }
         Cell::sem_deadList.release(1);
     }

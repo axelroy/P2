@@ -7,7 +7,6 @@ Collider::Collider(CustomScene* map, Cell* refCell)
     this->refCell = refCell;
     c = new Cell();
     area = Config::COLIDER_ACTIVE_AREA;
-    qDebug() << "mirobolan";
     autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     //this->map->collidingItems(this->refCell);
 }
@@ -16,8 +15,6 @@ Collider::Collider(CustomScene* map, Cell* refCell)
 //indexe les cellules proche dans une liste
 void Collider::run()
 {
-    qDebug() << "mirobolan au carre";
-    map->Ouaf();
     while(true){
         msleep(Config::COLIDER_TIMER);
         //Pour toute les cellules de la scene
@@ -27,6 +24,7 @@ void Collider::run()
                 if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area ){
                     if(!nearList.contains(s)){
                         nearList.push_back(s);
+
                     }
                 }
                 else{
@@ -50,6 +48,7 @@ void Collider::update()
         foreach (e, nearList) {
             if(refCell->collidesWithItem(e)){
                 c = reinterpret_cast<Cell*>(e);
+                //qDebug() << c->getHealthPoint() << " " << refCell->getHealthPoint();
 
                 if(!collidingCells.contains(c) && c->isActive()){
                     collidingCells.push_back(c);
@@ -60,7 +59,7 @@ void Collider::update()
                         c->desactivate();
                         Cell::deadListEnqueue(c);
                     }
-                    else if(refCell->getHealthPoint() < reinterpret_cast<Cell*>(c)->getHealthPoint()*0.8){
+                    else if(refCell->getHealthPoint() < c->getHealthPoint()*0.8){
                         c->eat(refCell);
                         refCell->hide();
 

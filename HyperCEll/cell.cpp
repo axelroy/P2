@@ -1,8 +1,20 @@
 #include "Cell.h"
 #include <QtMath>
+#include <QDebug>
 
 Cell::Cell(QGraphicsItem* parent) : QGraphicsEllipseItem(parent)
-{}
+{
+    qDebug() << "Contructeur Cell";
+    healthPoint = 0;
+    armor = 0;
+    speed = 0;
+    bonusHealthPoint = healthPoint;
+    bonusSpeed = 0;
+    bonusArmor = 0;
+    refreshSize();
+
+    active = false;
+}
 Cell::Cell(int healthPoint, QGraphicsItem* parent) : QGraphicsEllipseItem(parent)
 {
 

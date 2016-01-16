@@ -17,7 +17,7 @@ private:
     int bonusHealthPoint;
     double bonusSpeed;
     int bonusArmor;
-
+protected:
     bool active;
 
 public:

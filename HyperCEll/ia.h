@@ -11,15 +11,12 @@
 #include "QSemaphore"
 
 
-class Ia : public QThread
+class Ia : public QThread, public Cell
 {
 public:
-    Ia(CustomScene* map,Cell* iaCell);
+    Ia(CustomScene* map);
     void run();
-    void move();
     QSemaphore sem_control;
-
-
 
     char getDirection() const;
 
