@@ -1,3 +1,10 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : Collider
+ * Resumé           : Gère les collisions entre les cellules
+ * version          : 0.0
+ */
+
 #ifndef COLLIDER_H
 #define COLLIDER_H
 
@@ -8,13 +15,13 @@
 #include <QtGlobal>
 #include <QtCore/qmath.h>
 
-
 class Collider : public QThread
 {
     Q_OBJECT
 
 public:
     Collider(CustomScene* map, Cell* refCell);
+    ~Collider();
 
     void run();
 
@@ -23,6 +30,7 @@ public:
 
     char getAutorizedDirection() const;
     void setAutorizedDirection(char value);
+
 
 public slots:
     void on_Controller_BlockMovement(bool block);

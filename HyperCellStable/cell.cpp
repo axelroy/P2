@@ -20,7 +20,6 @@ Cell::Cell(int healthPoint, QGraphicsItem* parent) :
     //nothing
 }
 
-//todo supprimer params
 Cell::Cell(int healthPoint, int bonusHealthPoint, QGraphicsItem* parent) :
     QGraphicsEllipseItem(parent)
 {

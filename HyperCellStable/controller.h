@@ -1,3 +1,9 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : Controller
+ * Resumé           : Contrôle l'application
+ * version          : 0.0
+ */
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
@@ -19,10 +25,9 @@ public:
 
 public slots:
     void on_collider_collision(Cell &c1, Cell &c2);
+
 signals :
     void blockMovement(bool block);
-    void gamePause(bool isPaused);
-
 
 protected:
     void timerEvent(QTimerEvent* e);
@@ -38,7 +43,7 @@ private:
 
     void initialisation();
     void manageDeadCell(Cell &c);
-    void scaleView();
+    //void scaleView();
     void eat(Cell &c1, Cell &c2);
     void newGame();
     void refreshBestSize();

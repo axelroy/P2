@@ -2,7 +2,7 @@
 
 CustomScene::CustomScene(QObject *parent) : QGraphicsScene(parent)
 {
-
+    //nothings
 }
 
 void CustomScene::MoveCell(double x, double y, Cell * cell)

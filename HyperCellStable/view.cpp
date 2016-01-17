@@ -35,7 +35,8 @@ void View::keyPressEvent(QKeyEvent* e)
     //todo fucking hard code
     if(!e->isAutoRepeat())
     {
-        switch (e->key()) {
+        switch (e->key())
+        {
         case Qt::Key_W:
             View::keysStatment=View::keysStatment | 0b00000001;
             break;
@@ -66,7 +67,8 @@ void View::keyReleaseEvent(QKeyEvent* e)
 {
     if(!e->isAutoRepeat())
     {
-        switch (e->key()) {
+        switch (e->key())
+        {
         case Qt::Key_W:
             View::keysStatment=View::keysStatment & 0b11111110;
             break;

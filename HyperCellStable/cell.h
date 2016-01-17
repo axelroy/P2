@@ -1,3 +1,10 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : Cell
+ * Resumé           : classe data pour implémenter une cellule
+ * version          : 0.0
+ */
+
 #ifndef CELL_H
 #define CELL_H
 
@@ -7,7 +14,6 @@ class QMutex;
 
 class Cell : public QGraphicsEllipseItem
 {
-    // todo méthode qui retourne le centre de la cellule
 public:
     //Canonical form just for fun
     Cell(QGraphicsItem* parent = 0);

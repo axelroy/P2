@@ -1,3 +1,10 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : Settler
+ * Resumé           : peuple l'aire de jeu
+ * version          : 0.0
+ */
+
 #ifndef SETTLER_H
 #define SETTLER_H
 

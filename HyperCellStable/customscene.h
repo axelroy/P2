@@ -1,3 +1,10 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : CustomScene
+ * Resumé           : QGraphicsScene avec une méthode pour bouger les cellules dans la scene
+ * version          : 0.0
+ */
+
 #ifndef CUSTOMSCENE_H
 #define CUSTOMSCENE_H
 
