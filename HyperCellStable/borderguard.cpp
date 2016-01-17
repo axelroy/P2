@@ -4,6 +4,9 @@
 #include "config.h"
 #include "deadlist.h"
 
+/*============================================*/
+//  CONSTRUCTOR / DESTRUCTOR
+/*============================================*/
 
 Borderguard::Borderguard(Cell* refCell, CustomScene* map)
 {
@@ -12,6 +15,16 @@ Borderguard::Borderguard(Cell* refCell, CustomScene* map)
     refreshArea();
 }
 
+Borderguard::~Borderguard()
+{
+    // assure l'arret de la tâche
+    this->quit();
+}
+
+
+/*============================================*/
+//  THREAD RUN
+/*============================================*/
 
 //Detecte les cellules trop éloignée et les mets dans la deadlist
 void Borderguard::run()
@@ -40,10 +53,20 @@ void Borderguard::run()
     }
 }
 
+
+/*============================================*/
+//  ASSESSOR / MUTATOR
+/*============================================*/
+
 void Borderguard::setArea(double value)
 {
     area = value;
 }
+
+
+/*============================================*/
+//  UPDATE DATA
+/*============================================*/
 
 // la taille de zone évolue en fonction de la taille de la cellule
 void Borderguard::refreshArea()
