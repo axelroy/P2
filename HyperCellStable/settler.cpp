@@ -34,7 +34,8 @@ void Settler::settle()
         int RandY = Utility::randInt(-rangeMax, rangeMax);
         int RandX = Utility::randInt(-rangeMax, rangeMax);
 
-        if(qAbs(RandY) < rangeMin && qAbs(RandX) < rangeMin){
+        if(qAbs(RandY) < rangeMin && qAbs(RandX) < rangeMin)
+        {
             if(RandY < 0)
                 RandY-=rangeMin;
             else
@@ -95,7 +96,8 @@ void Settler::settle()
 
 void Settler::initSettle(CustomScene* map,int nbCells)
 {
-    for(int i = 0; i < nbCells; i++){
+    for(int i = 0; i < nbCells; i++)
+    {
         Cell * cell = new Cell(Config::START_LIFE);
         map->addItem(cell);
         DeadList::addCell(cell);
