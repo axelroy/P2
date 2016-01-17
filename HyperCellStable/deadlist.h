@@ -1,3 +1,10 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : DeadList
+ * Resumé           : Contient les cellules mortes de l'application
+ * version          : 0.0
+ */
+
 #ifndef DEADLIST_H
 #define DEADLIST_H
 

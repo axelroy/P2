@@ -1,6 +1,12 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : Config
+ * Resumé           : Contient les configurations pour le jeu
+ * version          : 0.0
+ */
+
 #ifndef CONFIG_H
 #define CONFIG_H
-
 
 class Config
 {
@@ -9,7 +15,7 @@ public:
 
     //General
     static const double KEYS_TIMER = 10;
-    static const int NB_CELLS = 500;
+    static const int NB_CELLS = 200;
     static const double START_LIFE = 1000;
     static const double START_ARMOR = 0;
     static const double START_SPEED = 5;

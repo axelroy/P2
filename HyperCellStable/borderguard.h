@@ -1,3 +1,10 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : Borderguard
+ * Resumé           : gère les cellules qui sont trop loin du joueur
+ * version          : 0.0
+ */
+
 #ifndef BORDERGUARD_H
 #define BORDERGUARD_H
 

@@ -1,3 +1,10 @@
+/* Auteurs          : Ramseyer Sylvain, Roy Axel, Ruedin Cyril
+ * Date de modif.   : 17.01.2016
+ * Classe           : View
+ * Resumé           : Caméra qui montre à l'utilisateur une certaine zone de jeu
+ * version          : 0.0
+ */
+
 #ifndef VIEW_H
 #define VIEW_H
 
