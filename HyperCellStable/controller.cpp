@@ -80,6 +80,7 @@ void Controller::timerEvent(QTimerEvent *e)
     mainCell->setSpeed((mainCell->getSpeed()-Config::START_SPEED)*Config::BONUS_SPEED_REGRESSION+Config::START_SPEED);
 
     settler->settle();
+    refreshBestSize();
 
     //mainCollider->update();
 
@@ -87,7 +88,6 @@ void Controller::timerEvent(QTimerEvent *e)
     {
         mainCollider->update();
     }
-
 }
 
 Controller::~Controller()
@@ -145,6 +145,7 @@ void Controller::newGame()
     mainCell->setX(0);
     mainCell->setY(0);
     mainCell->refreshSize();
+    bestSize = 0;
 
     foreach (QGraphicsItem * item, map->items())
     {
@@ -159,6 +160,11 @@ void Controller::newGame()
 
 
     emit blockMovement(false);
+}
+
+void Controller::showMsgBEndGame()
+{
+
 }
 
 void Controller::manageDeadCell(Cell &c)
@@ -202,6 +208,8 @@ void Controller::initialisation()
     borderguard = new Borderguard(mainCell, map);
     mainCollider = new Collider(map, mainCell);
 
+    bestSize = 0;
+
     //parametrize
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Config::START_SPEED);
@@ -224,6 +232,14 @@ void Controller::initialisation()
     {
         borderguard->start();
     }
-
     mainCollider->start();
 }
+
+void Controller::refreshBestSize()
+{
+    if(bestSize < mainCell->getHealthPoint() )
+    {
+        bestSize =  mainCell->getHealthPoint();
+    }
+}
+

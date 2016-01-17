@@ -28,6 +28,7 @@ protected:
     void timerEvent(QTimerEvent* e);
 
 private:
+    double bestSize;
     CustomScene* map;
     View* camera;
     Cell *mainCell;
@@ -40,6 +41,8 @@ private:
     void scaleView();
     void eat(Cell &c1, Cell &c2);
     void newGame();
+    void refreshBestSize();
+    void showMsgBEndGame();
 };
 
 #endif // CONTROLLER_H

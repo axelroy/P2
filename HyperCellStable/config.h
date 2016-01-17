@@ -8,8 +8,8 @@ public:
     Config(){}
 
     //General
-    static const int KEYS_TIMER = 10;
-    static const int NB_CELLS = 1000;
+    static const double KEYS_TIMER = 10;
+    static const int NB_CELLS = 500;
     static const double START_LIFE = 1000;
     static const double START_ARMOR = 0;
     static const double START_SPEED = 5;
@@ -27,22 +27,22 @@ public:
     static const double BONUS_SPEED_REGRESSION = 0.95;
 
     //Settler
-    static const int SETTLER_OFF_AREA = 500;
-    static const int SETTLER_ON_AREA = 3000;
-    static const int PROBABILITY_MALUS_CELL = 10;
-    static const int PROBABILITY_BONUS_CELL = 10;
+    static const double SETTLER_OFF_AREA = 300;
+    static const double SETTLER_ON_AREA = 2000;
+    static const double PROBABILITY_MALUS_CELL = 10;
+    static const double PROBABILITY_BONUS_CELL = 10;
     static const double RANGE_ADAPTER = 1.05;
 
     //colider
-    static const double COLIDER_ACTIVE_AREA = 3000;
-    static const int COLIDER_TIMER = 100;
+    static const double COLIDER_ACTIVE_AREA = 2000;
+    static const double COLIDER_TIMER = 20;
     static const float COLIDER_TREASHOLD= 0.9;
 
 
     //BorderGuard
-    static const int BORDERGUARD_AREA = 5000;
-    static const int BORDERGUARD_SLEEP = 600;
-    static const int BORDERGUARD_MIN_CELL_SIZE = 0.05;
+    static const double BORDERGUARD_AREA = 2000; // WARNING THAT MUST BE THE SAME THAN SETTLER_ON_AREA OR IMINANT BUG
+    static const double BORDERGUARD_SLEEP = 600;
+    static const double BORDERGUARD_MIN_CELL_SIZE = 0.05;
 
     //direction
     static const char DIRECTION_AUTHORIZED_ALL = 0b11111111;
