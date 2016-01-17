@@ -27,6 +27,17 @@ Controller::Controller(QWidget *parent) :
     startTimer(Config::KEYS_TIMER);
 }
 
+Controller::~Controller()
+{
+    delete map;
+    delete camera;
+    delete settler;
+    borderguard->quit();
+    delete borderguard;
+    mainCollider->quit();
+    delete mainCollider;
+}
+
 /*============================================*/
 //  OVERRIDE
 /*============================================*/
@@ -36,43 +47,51 @@ void Controller::timerEvent(QTimerEvent *e)
 {
     Q_UNUSED(e); // désactive le warning de l'inutilisation de e
 
-    //Move up
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP){
+    //Movements
+    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP)
+    {
         map->MoveCell(0.0,-mainCell->getSpeed(), mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP_LEFT){
+    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP_LEFT)
+    {
         map->MoveCell(-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_LEFT){
+    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_LEFT
+            ){
         map->MoveCell(-mainCell->getSpeed(),0.0, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_LEFT){
+    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_LEFT)
+    {
         map->MoveCell(-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN){
+    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN)
+    {
          map->MoveCell(0.0,mainCell->getSpeed(), mainCell);
          mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_RIGHT){
+    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_RIGHT)
+    {
         map->MoveCell(mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_RIGHT){
+    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_RIGHT)
+    {
         map->MoveCell(mainCell->getSpeed(),0.0, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
 
-    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP_RIGHT){
+    if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_UP_RIGHT)
+    {
         map->MoveCell(mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,-mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
         mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
     }
@@ -91,25 +110,29 @@ void Controller::timerEvent(QTimerEvent *e)
     }
 }
 
-Controller::~Controller()
-{
-    delete map;
-    delete camera;
-    delete settler;
-    borderguard->quit();
-    delete borderguard;
-    mainCollider->quit();
-    delete mainCollider;
-}
 
 /*============================================*/
-//  SIGNAL / SLOT
+//  PUBLIC SLOTS
 /*============================================*/
 
 void Controller::on_collider_collision(Cell &c1, Cell &c2)
 {
     eat(c1,c2);
 }
+
+
+/*============================================*/
+//  UPDATE DATA
+/*============================================*/
+
+void Controller::refreshBestSize()
+{
+    if(bestSize < mainCell->getHealthPoint() )
+    {
+        bestSize =  mainCell->getHealthPoint();
+    }
+}
+
 
 /*============================================*/
 //  PRIVATE
@@ -133,7 +156,6 @@ void Controller::eat(Cell &c1, Cell &c2)
         manageDeadCell(c1);
         c2.refreshSize();
     }
-    //scaleView();
 }
 
 void Controller::newGame()
@@ -188,9 +210,7 @@ void Controller::showMsgBEndGame()
 void Controller::manageDeadCell(Cell &c)
 {
     c.desactivate();
-    //qDebug()<<"is player" << c.isPlayer();
-    //qDebug()<<"c" << &c;
-    //qDebug()<<"mainCell" << &mainCell;
+
     if(c.isPlayer())
     {
         emit blockMovement(true);                
@@ -251,12 +271,3 @@ void Controller::initialisation()
     }
     mainCollider->start();
 }
-
-void Controller::refreshBestSize()
-{
-    if(bestSize < mainCell->getHealthPoint() )
-    {
-        bestSize =  mainCell->getHealthPoint();
-    }
-}
-
