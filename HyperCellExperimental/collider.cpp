@@ -19,29 +19,32 @@ void Collider::run()
     // ajouté un bool de sortie !! bien plus propre
     while(true){
         msleep(Config::COLIDER_TIMER);
-        //qDebug() << "5";
+        qDebug() << "collider" << "5";
         //Pour toute les cellules de la scene
         //todo with boundingrect
+        mutex_nearlist.lock();
         foreach(s, map->items()){
             if(s!=refCell){
                 //met celle qui sont proche dans la nearlist
-                //qDebug() << "6";
-                mutex_nearlist.lock();
-                if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area ){
+                //qDebug() << "collider" << "6";
+
+                if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area && reinterpret_cast<Cell*>(s)->isActive()){
                     if(!nearList.contains(s)){
-                        //qDebug() << "7";
+                        qDebug() << "collider" << "7";
                         nearList.push_back(s);
                     }
                 }
                 else{
                     if(nearList.contains(s)){
-                        //qDebug() << "8";
+                        qDebug() << "collider" << "8";
                         nearList.removeOne(s);
                     }
                 }
-                mutex_nearlist.unlock();
+
             }
+
         }
+        mutex_nearlist.unlock();
     }
 }
 
@@ -53,11 +56,11 @@ void Collider::update()
     collidingCells.clear();
     //if(Cell::sem_deadList.tryAcquire(1)){
     mutex_nearlist.lock();
-    //qDebug() << "9";
+    qDebug() << "collider" << "9";
     foreach (e, nearList) {
         if(refCell->collidesWithItem(e)){
             c = reinterpret_cast<Cell*>(e);
-            //qDebug() << "10";
+            qDebug() << "collider" << "10";
             if(!collidingCells.contains(c) && c->isActive()){
                 collidingCells.push_back(c);
 
@@ -67,7 +70,7 @@ void Collider::update()
                 }
                 else
                 {
-                    //qDebug() << "11";
+                    qDebug() << "collider" << "11";
                     //collision haut
                     if(refCell->sceneBoundingRect().center().y() > c->sceneBoundingRect().center().y()){
 
@@ -100,25 +103,25 @@ void Collider::update()
 
 char Collider::getAutorizedDirection() const
 {
-    //qDebug() << "13";
+    qDebug() << "collider" << "13";
     return autorizedDirection;
 }
 
 void Collider::setAutorizedDirection(char value)
 {
-    //qDebug() << "14";
+    qDebug() << "collider" << "14";
     autorizedDirection = value;
 }
 
 void Collider::on_Controller_BlockMovement()
 {
-    //qDebug() << "15";
+    qDebug() << "collider" << "15";
     autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
 }
 
 bool Collider::cellEatInteraction(double treashold, Cell &c1, Cell &c2)
 {
-    //qDebug() << "16";
+    qDebug() << "collider" << "16";
     return (c1.getHealthPoint() * treashold > c2.getHealthPoint()) ||
             (c2.getHealthPoint() * treashold > c1.getHealthPoint());
 }

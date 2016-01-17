@@ -162,7 +162,7 @@ void Controller::newGame()
 void Controller::moveBot(Bot * bot)
 {
     bot->start();
-    //qDebug() << bot->getHealthPoint() << "Move " << bot->getDirection() << bot->getSpeed();
+    qDebug() << bot->getHealthPoint() << "Move " << bot->getDirection() << bot->getSpeed();
     if((bot->getDirection() &   bot->getBotCollider()->getAutorizedDirection()) == Config::ACTION_UP){
         map->MoveCell(0.0,-bot->getSpeed(), bot);
          bot->getBotCollider()->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);

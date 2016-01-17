@@ -12,7 +12,7 @@ Bot::Bot(CustomScene* map)
 
 void Bot::run()
 {
-    //qDebug() << "1";
+    qDebug() << "bot" << "1";
     botCollider->mutex_nearlist.lock();
     targetTargeted = false;
     if(this->isActive()){
@@ -54,19 +54,19 @@ void Bot::run()
 
 char Bot::getDirection() const
 {
-    //qDebug() << "3";
+    qDebug() << "bot" << "3";
     return direction;
 }
 
 Collider *Bot::getBotCollider() const
 {
-    //qDebug() << "4";
+    qDebug() << "bot" << "4";
     return botCollider;
 }
 
 void Bot::calcDirection()
 {
-    //qDebug() << "2";
+    qDebug() << "bot" << "2";
     //se dirige vers la cellule
 
     //descendre

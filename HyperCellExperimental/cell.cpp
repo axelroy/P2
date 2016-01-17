@@ -73,6 +73,7 @@ void Cell::refreshSize()
     QMutexLocker locker(&mutex);
     qreal radius = 0;
     radius = 2*sqrt(healthPoint/M_PI);
+    qDebug() << radius;
     this->setRect(this->rect().x(), this->rect().y(), radius, radius);
 }
 
