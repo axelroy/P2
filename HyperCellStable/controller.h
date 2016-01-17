@@ -20,7 +20,7 @@ public:
 public slots:
     void on_collider_collision(Cell &c1, Cell &c2);
 signals :
-    void blockMovement();
+    void blockMovement(bool block);
     void gamePause(bool isPaused);
 
 

@@ -95,7 +95,10 @@ Controller::~Controller()
     delete map;
     delete camera;
     delete settler;
+    borderguard->quit();
     delete borderguard;
+    mainCollider->quit();
+    delete mainCollider;
 }
 
 /*============================================*/
@@ -139,13 +142,23 @@ void Controller::newGame()
     mainCell->setSpeed(Config::START_SPEED);
     mainCell->setArmor(Config::START_ARMOR);
     mainCell->activate();
+    mainCell->setX(0);
+    mainCell->setY(0);
+    mainCell->refreshSize();
 
-    foreach (QGraphicsItem * item, map->items()) {
-        Cell *c;
-        // static cast ?
-        //todo cast qgraph to cell
-        //DeadList::addCell(c);
+    foreach (QGraphicsItem * item, map->items())
+    {
+        Cell *c = reinterpret_cast<Cell*>(item);
+        if(c->isActive() && (!c->isPlayer()))
+        {
+            c->desactivate();
+            DeadList::addCell(c);
+            settler->settle();
+        }
     }
+
+
+    emit blockMovement(false);
 }
 
 void Controller::manageDeadCell(Cell &c)
@@ -156,9 +169,9 @@ void Controller::manageDeadCell(Cell &c)
     //qDebug()<<"mainCell" << &mainCell;
     if(c.isPlayer())
     {
-        emit blockMovement();
+        emit blockMovement(true);
         //Todo widget for restart
-        //newGame();
+        newGame();
     }
     else
     {
@@ -173,7 +186,7 @@ void Controller::manageDeadCell(Cell &c)
     int areaCell = mainCell->getHealthPoint();
     int areaView = camera->width()*camera->height();
 
-    double ratio = 1.0 / areaCell ;//* Config::ZOOM_OFFSET;
+    double ratio = 1.0 / areaCell * Config::ZOOM_OFFSET;
 
     ratio = 1; //avoid bug for now
     camera->scale(ratio,ratio);
@@ -200,12 +213,11 @@ void Controller::initialisation()
     camera->setScene(map);
     camera->show();
     camera->centerOn((mainCell->pos().x() - mainCell->boundingRect().width()/2), (mainCell->pos().y() - mainCell->boundingRect().height()/2));
-
     settler->initSettle(map,Config::NB_CELLS);
 
     //connects
     connect(mainCollider, SIGNAL(collision(Cell&,Cell&)),this, SLOT(on_collider_collision(Cell&,Cell&)));
-    connect(this, SIGNAL(blockMovement()),mainCollider, SLOT(on_Controller_BlockMovement()));
+    connect(this, SIGNAL(blockMovement(bool)),mainCollider, SLOT(on_Controller_BlockMovement(bool)));
 
     //start the thread if config active
     if(Config::ACTIVE_BORDERGUARD)

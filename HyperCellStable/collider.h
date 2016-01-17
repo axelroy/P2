@@ -25,7 +25,7 @@ public:
     void setAutorizedDirection(char value);
 
 public slots:
-    void on_Controller_BlockMovement();
+    void on_Controller_BlockMovement(bool block);
 
 signals:
     void collision(Cell &c1, Cell &c2);

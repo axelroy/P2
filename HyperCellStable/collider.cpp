@@ -98,9 +98,16 @@ void Collider::setAutorizedDirection(char value)
     autorizedDirection = value;
 }
 
-void Collider::on_Controller_BlockMovement()
+void Collider::on_Controller_BlockMovement(bool block)
 {
-    autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
+    if(block)
+    {
+        autorizedDirection = Config::DIRECTION_AUTHORIZED_NONE;
+    }
+    else
+    {
+         autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
+    }
 }
 
 bool Collider::cellEatInteraction(double treashold, Cell &c1, Cell &c2)
