@@ -15,6 +15,7 @@ class Collider : public QThread
 
 public:
     Collider(CustomScene* map, Cell* refCell);
+    ~Collider();
 
     void run();
 
@@ -23,6 +24,7 @@ public:
 
     char getAutorizedDirection() const;
     void setAutorizedDirection(char value);
+
 
 public slots:
     void on_Controller_BlockMovement(bool block);

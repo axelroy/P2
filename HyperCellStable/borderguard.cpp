@@ -30,7 +30,8 @@ Borderguard::~Borderguard()
 void Borderguard::run()
 {
     QGraphicsItem* controlledCell;
-    while(true){
+    while(true)
+    {
         msleep(Config::BORDERGUARD_SLEEP);
         foreach (controlledCell, map->items())
         {
@@ -38,11 +39,11 @@ void Borderguard::run()
             if (controlledCell->x() > refCell->x()+area ||
                     controlledCell->x() < refCell->x()-area ||
                     controlledCell->y() > refCell->y()+area ||
-                    controlledCell->y() < refCell->y()-area
-                    )
+                    controlledCell->y() < refCell->y()-area)
             {
                 Cell* c =  reinterpret_cast<Cell*>(controlledCell);
-                if(c->isActive()){
+                if(c->isActive())
+                {
                     // ajouter un bit a la class cell pour que l'on ajout pas deux fois une cellule
                     c->desactivate();
                     DeadList::addCell(c);

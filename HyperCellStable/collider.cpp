@@ -1,6 +1,10 @@
 #include "collider.h"
 #include "config.h"
 
+/*============================================*/
+//  CONSTRUCTOR / DESTRUCTOR
+/*============================================*/
+
 Collider::Collider(CustomScene* map, Cell* refCell)
 {
     this->map = map;
@@ -11,82 +15,108 @@ Collider::Collider(CustomScene* map, Cell* refCell)
     //this->map->collidingItems(this->refCell);
 }
 
+Collider::~Collider()
+{
+    // assure l'arret de la tâche
+    this->quit();
+    delete c;
+}
+
+
+/*============================================*/
+//  THREAD RUN
+/*============================================*/
 
 //indexe les cellules proche dans une liste
 void Collider::run()
 {
     // ajouté un bool de sortie !! bien plus propre
-    while(true){
+    while(true)
+    {
         msleep(Config::COLIDER_TIMER);
         //Pour toute les cellules de la scene
         //todo with boundingrect
-        foreach(s, map->items()){
-            if(s!=refCell){
+        foreach(s, map->items())
+        {
+            if(s!=refCell)
+            {
                 //met celle qui sont proche dans la nearlist
-                if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area ){
-                    if(!nearList.contains(s)){
+                if(qSqrt(qPow(s->x()-refCell->x(), 2) + qPow(s->y()-refCell->y(), 2)) < area )
+                {
+                    if(!nearList.contains(s))
+                    {
                         nearList.push_back(s);
                     }
                 }
-                else{
-                    if(nearList.contains(s)){
+                else
+                {
+                    if(nearList.contains(s))
+                    {
                         nearList.removeOne(s);
                     }
                 }
             }
-            }
         }
     }
+}
 
 
+/*============================================*/
+//  UPDATE DATA
+/*============================================*/
 
 //Detecte les collisions et
 void Collider::update()
 {
     collidingCells.clear();
-    //if(Cell::sem_deadList.tryAcquire(1)){
+    foreach (e, nearList)
+    {
+        if(refCell->collidesWithItem(e))
+        {
+            c = reinterpret_cast<Cell*>(e);
 
-        foreach (e, nearList) {
-            if(refCell->collidesWithItem(e)){
-                c = reinterpret_cast<Cell*>(e);
+            if(!collidingCells.contains(c) && c->isActive())
+            {
+                collidingCells.push_back(c);
 
-                if(!collidingCells.contains(c) && c->isActive()){
-                    collidingCells.push_back(c);
-
-                    if(cellEatInteraction(Config::COLIDER_TREASHOLD, *refCell, *c))
+                if(cellEatInteraction(Config::COLIDER_TREASHOLD, *refCell, *c))
+                {
+                    emit collision(*refCell, *c);
+                }
+                else
+                {
+                    //collision
+                    /********************/
+                    //haut
+                    if(refCell->sceneBoundingRect().center().y() > c->sceneBoundingRect().center().y())
                     {
-                        emit collision(*refCell, *c);
+                        autorizedDirection = Config::DIRECTION_UNAUTHORIZED_UP & Collider::autorizedDirection;
                     }
-                    else
+                    //bas
+                    if(refCell->sceneBoundingRect().center().y() < c->sceneBoundingRect().center().y())
                     {
-                        //collision haut
-                        if(refCell->sceneBoundingRect().center().y() > c->sceneBoundingRect().center().y()){
-
-                            autorizedDirection = Config::DIRECTION_UNAUTHORIZED_UP & Collider::autorizedDirection;
-                        }
-                        //bas
-                        if(refCell->sceneBoundingRect().center().y() < c->sceneBoundingRect().center().y()){
-                            autorizedDirection = Config::DIRECTION_UNAUTHORIZED_DOWN & Collider::autorizedDirection;
-
-                        }
-                        //gauche
-                        if(refCell->sceneBoundingRect().center().x() > c->sceneBoundingRect().center().x()){
-
-                            autorizedDirection = Config::DIRECTION_UNAUTHORIZED_LEFT & Collider::autorizedDirection;
-                        }
-                        //droite
-                        if(refCell->sceneBoundingRect().center().x() < c->sceneBoundingRect().center().x()){
-                            autorizedDirection = Config::DIRECTION_UNAUTHORIZED_RIGHT & Collider::autorizedDirection;
-
-                        }
-
-
+                        autorizedDirection = Config::DIRECTION_UNAUTHORIZED_DOWN & Collider::autorizedDirection;
+                    }
+                    //gauche
+                    if(refCell->sceneBoundingRect().center().x() > c->sceneBoundingRect().center().x())
+                    {
+                        autorizedDirection = Config::DIRECTION_UNAUTHORIZED_LEFT & Collider::autorizedDirection;
+                    }
+                    //droite
+                    if(refCell->sceneBoundingRect().center().x() < c->sceneBoundingRect().center().x())
+                    {
+                        autorizedDirection = Config::DIRECTION_UNAUTHORIZED_RIGHT & Collider::autorizedDirection;
                     }
                 }
             }
-        //}
+        }
     }
 }
+
+
+/*============================================*/
+//  ASSESSOR / MUTATOR
+/*============================================*/
 
 char Collider::getAutorizedDirection() const
 {
@@ -97,6 +127,11 @@ void Collider::setAutorizedDirection(char value)
 {
     autorizedDirection = value;
 }
+
+
+/*============================================*/
+//  PUBLIC SLOTS
+/*============================================*/
 
 void Collider::on_Controller_BlockMovement(bool block)
 {
@@ -109,6 +144,12 @@ void Collider::on_Controller_BlockMovement(bool block)
          autorizedDirection = Config::DIRECTION_AUTHORIZED_ALL;
     }
 }
+
+
+/*============================================*/
+//  PRIVATE
+/*============================================*/
+
 
 bool Collider::cellEatInteraction(double treashold, Cell &c1, Cell &c2)
 {
