@@ -11,8 +11,10 @@ class Borderguard : public QThread
 {
 public:
     Borderguard(Cell* refCell, CustomScene* map);
+    ~Borderguard();
     void run();
     void setArea(double value);
+
 
 private:
     double area;

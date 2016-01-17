@@ -65,6 +65,13 @@ Cell::~Cell()
 
 
 /*============================================*/
+//  THREAD SAFE
+/*============================================*/
+
+QMutex Cell::mutex;
+
+
+/*============================================*/
 //  UPDATE DATA
 /*============================================*/
 
@@ -76,10 +83,6 @@ void Cell::refreshSize()
     this->setRect(this->rect().x(), this->rect().y(), radius, radius);
 }
 
-/*============================================*/
-//  Thread safe
-/*============================================*/
-QMutex Cell::mutex;
 
 /*============================================*/
 //  ASSESSOR / MUTATOR
@@ -122,11 +125,6 @@ void Cell::setSpeed(double value)
     QMutexLocker locker(&mutex);
     speed=value;
 }
-
-
-/*============================================*/
-//  ASSESSOR / MUTATOR
-/*============================================*/
 
 void Cell::setBonusHealthPoint(int value)
 {
