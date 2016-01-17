@@ -138,6 +138,8 @@ void Controller::eat(Cell &c1, Cell &c2)
 
 void Controller::newGame()
 {
+    View::keysStatment = Config::INIT_KEYS_STATMENT;
+
     mainCell->setHealthPoint(Config::START_LIFE);
     mainCell->setBrush(Qt::blue);
     mainCell->setSpeed(Config::START_SPEED);
@@ -155,11 +157,13 @@ void Controller::newGame()
         {
             c->desactivate();
             DeadList::addCell(c);
-            settler->settle();
         }
     }
 
-
+    while(!DeadList::isEmpty())
+    {
+        settler->settle();
+    }
     emit blockMovement(false);
 }
 
@@ -189,7 +193,7 @@ void Controller::manageDeadCell(Cell &c)
     //qDebug()<<"mainCell" << &mainCell;
     if(c.isPlayer())
     {
-        emit blockMovement(true);
+        emit blockMovement(true);                
         showMsgBEndGame();
     }
     else
