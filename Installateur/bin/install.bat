@@ -1,0 +1,2 @@
+binarycreator.exe --offline-only -c "D:\Work\HES\Bachelor\Projet P2\Installateur\HyperCell\Config\config.xml" -p "D:\Work\HES\Bachelor\Projet P2\Installateur\HyperCell\Packages" -t installerbase.exe install_HyperCell.exe
+      

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Package>
+	<DisplayName>HyperCell</DisplayName>
+	<Description>Projet P2 : Jeu de developpement cellulaire</Description>
+	<Version>0.6</Version>
+	<ReleaseDate>2016-01-17</ReleaseDate>
+	<Name>HyperCell</Name>
+</Package>

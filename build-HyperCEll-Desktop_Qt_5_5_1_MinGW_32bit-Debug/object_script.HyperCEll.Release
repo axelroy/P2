@@ -1,0 +1,15 @@
+INPUT(
+./release\main.o
+./release\controller.o
+./release\cell.o
+./release\customscene.o
+./release\view.o
+./release\collider.o
+./release\borderguard.o
+./release\settler.o
+./release\utility.o
+./release\deadlist.o
+./release\qrc_ressources.o
+./release\moc_controller.o
+./release\moc_collider.o
+);

@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<Installer>
+	<Name>HyperCell</Name>
+	<Version>0.6</Version>
+	<Title>HyperCell</Title>
+	<TargetDir>@HomeDir@/hypercell</TargetDir>
+</Installer>
