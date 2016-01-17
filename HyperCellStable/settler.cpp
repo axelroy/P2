@@ -51,20 +51,42 @@ void Settler::settle()
 
         randomTypeCell = Utility::randInt(0, 100);
         //Risque de voir une prolifération de malusCell car le joueur va éviter de les prendre ?
-        if(randomTypeCell < Config::PROBABILITY_MALUS_CELL){
-            cellTreated->setHealthPoint(0.2*refCell->getHealthPoint());
+        if(randomTypeCell < Config::PROBABILITY_MALUS_CELL)
+        {
             cellTreated->setBrush(Qt::red);
+
+            cellTreated->setHealthPoint(0.2*refCell->getHealthPoint());
+            cellTreated->setSpeed(0);
+            cellTreated->setArmor(0);
+
             cellTreated->setBonusHealthPoint((-(double)(Utility::randInt(1, 5))/10)*refCell->getHealthPoint());
             cellTreated->setBonusSpeed((-(double)(Utility::randInt(2, 20))/10)*refCell->getSpeed());
-        }else if(randomTypeCell < Config::PROBABILITY_BONUS_CELL+Config::PROBABILITY_MALUS_CELL){
-            cellTreated->setHealthPoint(0.2*refCell->getHealthPoint());
+            cellTreated->setBonusArmor(0);
+        }
+        else if(randomTypeCell < Config::PROBABILITY_BONUS_CELL+Config::PROBABILITY_MALUS_CELL)
+        {
             cellTreated->setBrush(Qt::green);
+
+            cellTreated->setHealthPoint(0.2*refCell->getHealthPoint());
+            cellTreated->setSpeed(0);
+            cellTreated->setArmor(0);
+
             cellTreated->setBonusHealthPoint(((double)(Utility::randInt(1, 5))/10)*refCell->getHealthPoint());
             cellTreated->setBonusSpeed(((double)(Utility::randInt(2, 20))/10)*refCell->getSpeed());
-        }else {
-            cellTreated->setHealthPoint(((double)(Utility::randInt(3, 20))/10)*refCell->getHealthPoint());
-            cellTreated->setBonusHealthPoint(cellTreated->getHealthPoint());
+            cellTreated->setBonusArmor(0);
+        }
+        else
+        {
             cellTreated->setBrush(Qt::yellow);
+
+            cellTreated->setHealthPoint(((double)(Utility::randInt(3, 20))/10)*refCell->getHealthPoint());
+            cellTreated->setSpeed(0);
+            cellTreated->setArmor(0);
+
+            cellTreated->setBonusHealthPoint(cellTreated->getHealthPoint());
+            cellTreated->setBonusSpeed(0);
+            cellTreated->setBonusArmor(0);
+
         }
         cellTreated->refreshSize();
         cellTreated->activate();
