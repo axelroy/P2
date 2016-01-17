@@ -11,6 +11,9 @@
 
 #include <QDebug>
 #include <QTime>
+#include <QApplication>
+#include <QMessageBox>
+
 
 /*============================================*/
 //  CONSTRUCTOR / DESTRUCTOR
@@ -57,7 +60,7 @@ void Controller::timerEvent(QTimerEvent *e)
     if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN){
          map->MoveCell(0.0,mainCell->getSpeed(), mainCell);
          mainCollider->setAutorizedDirection(Config::DIRECTION_AUTHORIZED_ALL);
-     }
+    }
 
     if((View::keysStatment & mainCollider->getAutorizedDirection()) == Config::ACTION_DOWN_RIGHT){
         map->MoveCell(mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR,mainCell->getSpeed()*Config::DIAGONAL_SPEED_MULTIPLICATOR, mainCell);
@@ -81,8 +84,6 @@ void Controller::timerEvent(QTimerEvent *e)
 
     settler->settle();
     refreshBestSize();
-
-    //mainCollider->update();
 
     if (mainCell->isActive())
     {
@@ -164,7 +165,17 @@ void Controller::newGame()
 
 void Controller::showMsgBEndGame()
 {
+    QMessageBox::StandardButton reply;
+    reply = QMessageBox::warning(this, "Vous avez perdu !", "votre masse maximal :\n \n voulez vous recommencer ?",
+                                    QMessageBox::Yes|QMessageBox::No);
 
+    if (reply == QMessageBox::Yes) {
+        newGame();
+    }
+    else
+    {
+        QApplication::quit();
+    }
 }
 
 void Controller::manageDeadCell(Cell &c)
@@ -176,8 +187,7 @@ void Controller::manageDeadCell(Cell &c)
     if(c.isPlayer())
     {
         emit blockMovement(true);
-        //Todo widget for restart
-        newGame();
+        showMsgBEndGame();
     }
     else
     {
