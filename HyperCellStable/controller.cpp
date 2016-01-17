@@ -166,8 +166,11 @@ void Controller::newGame()
 void Controller::showMsgBEndGame()
 {
     QMessageBox::StandardButton reply;
-    reply = QMessageBox::warning(this, "Vous avez perdu !", "votre masse maximal :\n \n voulez vous recommencer ?",
-                                    QMessageBox::Yes|QMessageBox::No);
+    QString titre = "Vous avez perdu !";
+    QString corps = "Votre masse maximal atteinte :\n%1pg\n\nVoulez-vous recommencer ?";
+    corps = corps.arg(bestSize);
+
+    reply = QMessageBox::warning(this, titre, corps, QMessageBox::Yes|QMessageBox::No);
 
     if (reply == QMessageBox::Yes) {
         newGame();
